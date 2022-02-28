@@ -1,7 +1,5 @@
 import sqlite3, sys
 
-var = 1
-
 ################## Text Based User Interface ####################
 def show_menu():
     print("\nProduct Table Menu")
