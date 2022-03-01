@@ -160,7 +160,7 @@ def select_products_UI():
 def delete_product(data):
     with sqlite3.connect("davis\'_coffee_shop.db") as db:
         cursor = db.cursor()
-        sql = "delete from Product where Name= ?"
+        sql = "delete from Product where ProductID= ?"
         cursor.execute(sql, data)
         db.commit()
 
