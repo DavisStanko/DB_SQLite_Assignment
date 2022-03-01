@@ -49,7 +49,7 @@ def create_product_table_UI():
 
 
 def create_table():
-    db_name = "coffee_shop.db"
+    db_name = "davis\'_coffee_shop.db"
     sql = """create table Product
             (ProductID integer,
             Name text,
@@ -84,9 +84,11 @@ def create_table():
 # ADD #
 # Add to definition for insert_data here!
 def insert_data(values):
-    print("\nadd DB SQL code here to insert new data")
-    # use Python SQL function to insert the data in the DB
-
+    with sqlite3.connect("davis\'_coffee_shop.db") as db:
+        cursor = db.cursor()
+        sql = "insert into Product (Name, Price) values (?, ?)"
+        cursor.execute(sql, values)
+        db.commit()
 
 def insert_UI():
     # user input is requested
