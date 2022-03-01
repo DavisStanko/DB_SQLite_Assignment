@@ -1,6 +1,9 @@
-import sqlite3, sys
+import sqlite3
+import sys
 
 ################## Text Based User Interface ####################
+
+
 def show_menu():
     print("\nProduct Table Menu")
     print("1. (Re)Create Product Table")
@@ -10,6 +13,7 @@ def show_menu():
     print("5. Find products")
     print("6. List products")
     print("0. To exit")
+
 
 def handleChoice():
     choice = input("Please select an option: \n")
@@ -38,8 +42,6 @@ def handleChoice():
         print("\nPlease select again.")
 
 
-
-
 ################## DB SQL Functionality ####################
 
 # CREATE DB AND TABLE #
@@ -56,17 +58,20 @@ def create_table():
             Price real,
             primary key(ProductID))"""
     table_name = "Product"
-    
+
     with sqlite3.connect(db_name) as db:
         cursor = db.cursor()
-        cursor.execute("select name from sqlite_master where name=?",(table_name,))
+        cursor.execute(
+            "select name from sqlite_master where name=?", (table_name,))
         result = cursor.fetchall()
         keep_table = True
         if len(result) == 1:
-            response = input("The table {0} already exists, do you wish to recreate it? (y/n): ".format(table_name))
+            response = input(
+                "The table {0} already exists, do you wish to recreate it? (y/n): ".format(table_name))
             if response == 'y':
                 keep_table = False
-                print("The {0} table will be recreated - all existing data will be lost.".format(table_name))
+                print(
+                    "The {0} table will be recreated - all existing data will be lost.".format(table_name))
                 cursor.execute("drop table if exists {0}".format(table_name))
                 db.commit()
             else:
@@ -82,13 +87,13 @@ def create_table():
 
 
 # ADD #
-# Add to definition for insert_data here!
 def insert_data(values):
     with sqlite3.connect("davis\'_coffee_shop.db") as db:
         cursor = db.cursor()
         sql = "insert into Product (Name, Price) values (?, ?)"
         cursor.execute(sql, values)
         db.commit()
+
 
 def insert_UI():
     # user input is requested
@@ -100,11 +105,12 @@ def insert_UI():
 
 
 # UPDATE #
-# Add to definition for update_product here!
 def update_product(data):
-    print("\nadd DB SQL code here to update product data")
-    # use Python SQL function to update the data in the DB
-
+    with sqlite3.connect("davis\'_coffee_shop.db") as db:
+        cursor = db.cursor()
+        sql = "update Product set Name = ?, Price = ? where ProductID = ?"
+        cursor.execute(sql, data)
+        db.commit()
 
 
 def update_UI():
@@ -114,8 +120,7 @@ def update_UI():
     print("Please enter price of %s: " % product_name)
     product_price = input()
     data = (product_name, product_price, product_ID)
-    update_product(data)    
-
+    update_product(data)
 
 
 # FIND #
@@ -124,19 +129,17 @@ def select_all_products():
     print("\nadd DB SQL code here to select all products")
     # use Python SQL function to select/find the data in the DB
 
-    
-
 
 # Add definition for select_product here!
 def select_product(id):
     print("\nadd DB SQL code here to select product with specific ID")
     # use Python SQL function to select/find the data in the DB
-   
 
 
 def select_products_UI():
     # user input is requested
-    choice = input("Enter \'one' for a specific product ID and \'all' for all products in the DB.\n")
+    choice = input(
+        "Enter \'one' for a specific product ID and \'all' for all products in the DB.\n")
     choice = choice.lower()
     choice = choice.strip()
     if choice == 'one':
@@ -150,13 +153,14 @@ def select_products_UI():
         print("Please select again.\n")
 
 
-
 # DELETE #
-# Add definition for delete_product here!
 def delete_product(data):
-    print("\nadd DB SQL code here to delete product with specific ID")
-    # use Python SQL function to delete the data in the DB
-    
+    with sqlite3.connect("davis\'_coffee_shop.db") as db:
+        cursor = db.cursor()
+        sql = "delete from Product where Name= ?"
+        cursor.execute(sql, data)
+        db.commit()
+
 
 def delete_UI():
     # user input is requested
@@ -174,17 +178,9 @@ def list_products_UI():
 # Add list_products() function here; call it in function above
 
 
-
-
-
 ################## MAIN LOOP #########################
 if __name__ == "__main__":
-    ## main loop
+    # main loop
     while True:
         show_menu()
         handleChoice()
-
-          
-        
-            
-    
