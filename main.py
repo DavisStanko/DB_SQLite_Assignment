@@ -124,16 +124,19 @@ def update_UI():
 
 
 # FIND #
-# Add definition for select_all_products here!
 def select_all_products():
-    print("\nadd DB SQL code here to select all products")
-    # use Python SQL function to select/find the data in the DB
+    with sqlite3.connect("davis\'_coffee_shop.db") as db:
+        cursor = db.cursor()
+        cursor.execute("select * from Product")
+        products = cursor.fetchall()
+        return products
 
-
-# Add definition for select_product here!
 def select_product(id):
-    print("\nadd DB SQL code here to select product with specific ID")
-    # use Python SQL function to select/find the data in the DB
+    with sqlite3.connect("davis\'_coffee_shop.db") as db:
+        cursor = db.cursor()
+        cursor.execute("select * from Product where ProductID = ?", (id,))
+        product = cursor.fethcone()
+        return cursor.fetchone()
 
 
 def select_products_UI():
