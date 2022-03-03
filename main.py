@@ -1,9 +1,8 @@
 import sqlite3
 import sys
 
+
 ################## Text Based User Interface ####################
-
-
 def show_menu():
     print("\nProduct Table Menu")
     print("1. (Re)Create Product Table")
@@ -37,6 +36,7 @@ def handleChoice():
         print("\nFind products")
         select_products_UI()
     elif "6" == choice:
+        print("\nList products")
         list_products_UI()
     else:
         print("\nPlease select again.")
@@ -51,7 +51,7 @@ def create_product_table_UI():
 
 
 def create_table():
-    db_name = "davis\'_coffee_shop.db"
+    db_name = "davis\'coffee_shop.db"
     sql = """create table Product
             (ProductID integer,
             Name text,
@@ -88,15 +88,15 @@ def create_table():
 
 # ADD #
 def insert_data(values):
-    with sqlite3.connect("davis\'_coffee_shop.db") as db:
+    with sqlite3.connect("coffee_shop.db") as db:
         cursor = db.cursor()
-        sql = "insert into Product (Name, Price) values (?, ?)"
+        sql = "insert into Product (Name, Price) values (?,?)"
         cursor.execute(sql, values)
         db.commit()
 
 
 def insert_UI():
-    # user input is requested
+    global productsAll
     product_name = input("Please enter name of new product.\n")
     print("Please enter price of %s: " % product_name)
     product_price = input()
@@ -106,9 +106,9 @@ def insert_UI():
 
 # UPDATE #
 def update_product(data):
-    with sqlite3.connect("davis\'_coffee_shop.db") as db:
+    with sqlite3.connect("coffee_shop.db") as db:
         cursor = db.cursor()
-        sql = "update Product set Name = ?, Price = ? where ProductID = ?"
+        sql = "update Product set Name=?, Price=? where ProductID=?"
         cursor.execute(sql, data)
         db.commit()
 
@@ -125,18 +125,21 @@ def update_UI():
 
 # FIND #
 def select_all_products():
-    with sqlite3.connect("davis\'_coffee_shop.db") as db:
+    global productsAll
+    with sqlite3.connect("coffee_shop.db") as db:
         cursor = db.cursor()
         cursor.execute("select * from Product")
-        products = cursor.fetchall()
-        return products
+        productsAll = cursor.fetchall()
+        return productsAll
+
 
 def select_product(id):
-    with sqlite3.connect("davis\'_coffee_shop.db") as db:
+    with sqlite3.connect("coffee_shop.db") as db:
         cursor = db.cursor()
-        cursor.execute("select * from Product where ProductID = ?", (id,))
-        product = cursor.fethcone()
-        return cursor.fetchone()
+        cursor.execute(
+            "select Name,Price from Product where ProductID=?", (id,))
+        product = cursor.fetchone()
+        return product
 
 
 def select_products_UI():
@@ -156,11 +159,16 @@ def select_products_UI():
         print("Please select again.\n")
 
 
+def select_products_UI():
+    product_ID = int(input("Please enter product ID to find.\n"))
+    print(select_product(product_ID))
+
+
 # DELETE #
 def delete_product(data):
-    with sqlite3.connect("davis\'_coffee_shop.db") as db:
+    with sqlite3.connect("coffee_shop.db") as db:
         cursor = db.cursor()
-        sql = "delete from Product where ProductID= ?"
+        sql = "delete from product where Name=?"
         cursor.execute(sql, data)
         db.commit()
 
@@ -176,9 +184,25 @@ def delete_UI():
 # LIST sort/order products
 def list_products_UI():
     print("\nAdd DB SQL code here to list and sort products by name or price.")
+    # user input is requested
+    choice = input(
+        "Enter \'one' for a specific product ID and \'all' for all products in the DB.\n")
+    choice = choice.lower()
+    choice = choice.strip()
+    if choice == 'one':
+        product_ID = int(input("Please enter product ID to find.\n"))
+        print(select_product(product_ID))
+    elif choice == 'all':
+
+        print(select_all_products())
+    else:
+        print("Please select again.\n")
+
     input("\nPress enter to continue.")
 
-# Add list_products() function here; call it in function above
+
+def list_product():
+    print("filler")
 
 
 ################## MAIN LOOP #########################
