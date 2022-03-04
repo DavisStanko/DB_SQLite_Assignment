@@ -16,10 +16,6 @@ gruvYellow = "#d79921"  # Called gruv yellow as yellow is already a system color
 # CREATE DB AND TABLE #
 
 
-def create_product_table_UI():
-    print("Make sure you read the instructions here.")
-    create_table()
-
 
 def create_table():
     db_name = "davis\'coffee_shop.db"

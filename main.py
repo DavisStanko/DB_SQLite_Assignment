@@ -1,3 +1,5 @@
+#fix no button pls
+
 import tkinter as tk
 import backend
 import sys
@@ -23,8 +25,8 @@ def create_product_table_UI():
     createWindow.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
 
     # Options
-    confirmLabel = tk.Lbel(createWindow, text="This action will overwrite any prexisting database with the same name, are you sure you would like to continue?", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0",)
-    yesButton = tk.Button(createWindow, text="Yes", fg=fg1, bg=gruvYellow,  highlightthickness="0", borderwidth="0", command=backend.insert_UI)
+    confirmLabel = tk.Label(createWindow, text="This action will overwrite any prexisting database with the same name, are you sure you would like to continue?", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0",)
+    yesButton = tk.Button(createWindow, text="Yes", fg=fg1, bg=gruvYellow,  highlightthickness="0", borderwidth="0", command=backend.create_table)
     noButton = tk.Button(createWindow, text="No", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=sys.exit)
 
     confirmLabel.grid(row=0, column=0, padx=10, pady=10)
