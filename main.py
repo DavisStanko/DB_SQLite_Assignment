@@ -22,10 +22,9 @@ def product_table():
     exitButton = tk.Button(text="Exit", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=sys.exit).pack()
 
 def login():
-    global loginPassword
     inp = loginPassword.get()
     if inp != "password":
-        return
+        wrongPassword.configure(text="Wrong password!")
     else:
         loginWindow.destroy()
         window = tk.Tk()
@@ -44,8 +43,10 @@ loginWindow.configure(background=bg1)  # Changes background color
 
 loginPassword = tk.Entry(fg=bg1, bg=fg1, highlightthickness="0", borderwidth="0")
 loginButton = tk.Button(text="Login", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=login)
+wrongPassword = tk.Label(text="", fg=fg1, bg=bg1) #placeholder for wrong password label
 
 loginPassword.pack()
 loginButton.pack()
+wrongPassword.pack()
 
 loginWindow.mainloop()
