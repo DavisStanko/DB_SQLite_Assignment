@@ -1,51 +1,21 @@
+import tkinter as tk
 import sqlite3
 import sys
 
-################## Text Based User Interface ####################
-
-
-def show_menu():
-    print("\nProduct Table Menu")
-    print("1. (Re)Create Product Table")
-    print("2. Add new product")
-    print("3. Update existing product")
-    print("4. Delete existing product")
-    print("5. Find products")
-    print("6. List products")
-    print("0. To exit")
-
-
-def handleChoice():
-    choice = input("Please select an option: \n")
-    if '0' == choice:
-        print("Bye!")
-        sys.exit()
-        quit()
-    elif "1" == choice:
-        print("\nRe)Create Product Table selected")
-        create_product_table_UI()
-    elif "2" == choice:
-        print("\nAdd product")
-        insert_UI()
-    elif "3" == choice:
-        print("\nUpdate product")
-        update_UI()
-    elif "4" == choice:
-        print("\nDelete product")
-        delete_UI()
-    elif "5" == choice:
-        print("\nFind products")
-        select_products_UI()
-    elif "6" == choice:
-        print("\nList products")
-        list_products_UI()
-    else:
-        print("\nPlease select again.")
-
+# Naming color hexcodes
+# Taken from Gruvbox Dark theme
+bg0 = "#282828"
+bg1 = "#3c3836"
+bg2 = "#504945"
+bg3 = "#665c54"
+fg1 = "#ebdbb2"
+gruvYellow = "#d79921"  # Called gruv yellow as yellow is already a system color
 
 ################## DB SQL Functionality ####################
 
 # CREATE DB AND TABLE #
+
+
 def create_product_table_UI():
     print("Make sure you read the instructions here.")
     create_table()
@@ -204,11 +174,3 @@ def list_products_UI():
 
 def list_product():
     print("filler")
-
-
-################## MAIN LOOP #########################
-if __name__ == "__main__":
-    # main loop
-    while True:
-        show_menu()
-        handleChoice()
