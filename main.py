@@ -27,6 +27,7 @@ def create_product_table_UI():
         product_table()
         
     def yes():
+        global messageLabel
         db_name = "davis\'coffee_shop.db"
         sql = """create table Product
                 (ProductID integer,
@@ -51,6 +52,9 @@ def create_product_table_UI():
             if not keep_table:
                 cursor.execute(sql)
                 db.commit()
+        no()
+        messageLabel.configure(text="Table created!")
+        
 
 
     global window
@@ -111,7 +115,9 @@ def insert_UI():
     noButton.grid_columnconfigure(1, weight=1)
 
 def product_table():
+    global messageLabel
     # Product table menu
+    messageLabel = tk.Label(window, text="", fg=fg1, bg=bg1, highlightthickness="0", borderwidth="0")
     createButton = tk.Button(window, text="(Re)Create Product Table", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=create_product_table_UI)
     addButton = tk.Button(window, text="Add new product", fg=fg1, bg=gruvYellow,  highlightthickness="0", borderwidth="0", command=insert_UI)
     updateButton = tk.Button(window, text="Update existing product", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=backend.update_UI)
@@ -120,19 +126,21 @@ def product_table():
     listButton = tk.Button(window, text="List products", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=backend.list_products_UI)
     exitButton = tk.Button(window, text="Exit", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=sys.exit)
 
-    createButton.grid(row=0, column=0, padx=10, pady=10)
+    messageLabel.grid(row=0, column=0, padx=10, pady=10)
+    messageLabel.grid_columnconfigure(1, weight=1)
+    createButton.grid(row=1, column=0, padx=10, pady=10)
     createButton.grid_columnconfigure(1, weight=1)
-    addButton.grid(row=1, column=0, padx=10, pady=10)
+    addButton.grid(row=2, column=0, padx=10, pady=10)
     addButton.grid_columnconfigure(1, weight=1)
-    updateButton.grid(row=2, column=0, padx=10, pady=10)
+    updateButton.grid(row=3, column=0, padx=10, pady=10)
     updateButton.grid_columnconfigure(1, weight=1)
-    deleteButton.grid(row=3, column=0, padx=10, pady=10)
+    deleteButton.grid(row=4, column=0, padx=10, pady=10)
     deleteButton.grid_columnconfigure(1, weight=1)
-    findButton.grid(row=4, column=0, padx=10, pady=10)
+    findButton.grid(row=5, column=0, padx=10, pady=10)
     findButton.grid_columnconfigure(1, weight=1)
-    listButton.grid(row=5, column=0, padx=10, pady=10)
+    listButton.grid(row=6, column=0, padx=10, pady=10)
     listButton.grid_columnconfigure(1, weight=1)
-    exitButton.grid(row=6, column=0, padx=10, pady=10)
+    exitButton.grid(row=7, column=0, padx=10, pady=10)
     exitButton.grid_columnconfigure(1, weight=1)
 
 
