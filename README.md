@@ -36,6 +36,6 @@ Once you have made a database, simply use the main menu to find the functions yo
 
 ## License
 
-This project is licensed under the [CC0 1.0 Universal](LICENSE.md)
-Creative Commons License - see the [LICENSE.md](LICENSE.md) file for
+This project is licensed under the [placehodler](LICENSE.md)
+Placeholder License - see the [placeholder](LICENSE.md) file for
 details
