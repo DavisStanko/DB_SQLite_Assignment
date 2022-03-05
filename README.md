@@ -33,9 +33,3 @@ Once you have made a database, simply use the main menu to find the functions yo
 
   - **Davis Stanko** - *Lead Developer* -
     [Website](https://davisstanko.com)
-
-## License
-
-This project is licensed under the [placehodler](LICENSE.md)
-Placeholder License - see the [placeholder](LICENSE.md) file for
-details
