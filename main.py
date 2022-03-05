@@ -21,14 +21,14 @@ def create_product_table_UI():
         window = tk.Tk()
         window.title("Coffee Shop Database")
         window.geometry("800x600")
-        window.tk.call('tk', 'scaling', 0.75)  # Makes all widgets 2x as big.
+        window.tk.call('tk', 'scaling', 0.75)  # Makes all widgets bigger.
         window.configure(background=bg1)
         window.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
         product_table()
         
     def yes():
         global messageLabel
-        db_name = "davis\'coffee_shop.db"
+        db_name = "coffee_shop.db"
         sql = """create table Product
                 (ProductID integer,
                 Name text,
@@ -62,7 +62,7 @@ def create_product_table_UI():
     createWindow = tk.Tk()
     createWindow.title("(Re)Create Product Table")
     createWindow.geometry("800x600")
-    createWindow.tk.call('tk', 'scaling', 0.75)  # Makes all widgets 2x as big.
+    createWindow.tk.call('tk', 'scaling', 0.75)  # Makes all widgets bigger.
     createWindow.configure(background=bg1)
     createWindow.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
 
@@ -85,10 +85,17 @@ def insert_UI():
         window = tk.Tk()
         window.title("Coffee Shop Database")
         window.geometry("800x600")
-        window.tk.call('tk', 'scaling', 0.75)  # Makes all widgets 2x as big.
+        window.tk.call('tk', 'scaling', 0.75)  # Makes all widgets bigger.
         window.configure(background=bg1)
         window.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
         product_table()
+        
+    def insert_data(values):
+        with sqlite3.connect("coffee_shop.db") as db:
+            cursor = db.cursor()
+            sql = "insert into Product (Name, Price) values (?,?)"
+            cursor.execute(sql, values)
+            db.commit()
         
     def yes():
         inpProduct = productEntry.get()  # Get text field contents
@@ -96,6 +103,11 @@ def insert_UI():
         if inpProduct == "" or inpCost == "":
             errorLabel.configure(text="Please fill in both inputs!")
         else:
+            global productsAll
+            product_name = inpProduct
+            product_price = inpCost
+            product = (product_name, product_price)
+            insert_data(product)
             no()
             messageLabel.configure(text="Item added!")
         
@@ -106,7 +118,7 @@ def insert_UI():
     insertWindow = tk.Tk()
     insertWindow.title("(Add to Product Table")
     insertWindow.geometry("800x600")
-    insertWindow.tk.call('tk', 'scaling', 0.75)  # Makes all widgets 2x as big.
+    insertWindow.tk.call('tk', 'scaling', 0.75)  # Makes all widgets bigger.
     insertWindow.configure(background=bg1)
     insertWindow.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
 
@@ -172,7 +184,7 @@ def login():
         window = tk.Tk()
         window.title("Davis\' Coffee Shop Database")
         window.geometry("800x600")
-        window.tk.call('tk', 'scaling', 0.75)  # Makes all widgets 2x as big.
+        window.tk.call('tk', 'scaling', 0.75)  # Makes all widgets bigger.
         window.configure(background=bg1)
         window.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
         product_table()
@@ -184,7 +196,7 @@ def login():
 loginWindow = tk.Tk()
 loginWindow.title("Login")
 loginWindow.geometry("800x600")
-loginWindow.tk.call('tk', 'scaling', 0.75)  # Makes all widgets 2x as big.
+loginWindow.tk.call('tk', 'scaling', 0.75)  # Makes all widgets bigger.
 loginWindow.configure(background=bg1)  # Changes background color
 
 loginPassword = tk.Entry(loginWindow, fg=bg1, bg=fg1, highlightthickness="0", borderwidth="0")

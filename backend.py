@@ -1,35 +1,7 @@
-import tkinter as tk
 import sqlite3
 import sys
 
-# Naming color hexcodes
-# Taken from Gruvbox Dark theme
-bg0 = "#282828"
-bg1 = "#3c3836"
-bg2 = "#504945"
-bg3 = "#665c54"
-fg1 = "#ebdbb2"
-gruvYellow = "#d79921"  # Called gruv yellow as yellow is already a system color
-
 ################## DB SQL Functionality ####################
-
-# ADD #
-def insert_data(values):
-    with sqlite3.connect("coffee_shop.db") as db:
-        cursor = db.cursor()
-        sql = "insert into Product (Name, Price) values (?,?)"
-        cursor.execute(sql, values)
-        db.commit()
-
-
-def insert_UI():
-    global productsAll
-    product_name = input("Please enter name of new product.\n")
-    print("Please enter price of %s: " % product_name)
-    product_price = input()
-    product = (product_name, product_price)
-    insert_data(product)
-
 
 # UPDATE #
 def update_product(data):
