@@ -1,0 +1,2 @@
+This program was made to create and edit a dictional coffee shop's sqlite database.
+If you are using this program for the first time be sure to create the database before attempting to make changes to it.
