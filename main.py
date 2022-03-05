@@ -74,11 +74,46 @@ def create_product_table_UI():
     noButton.grid(row=6, column=0, padx=10, pady=10)
     noButton.grid_columnconfigure(1, weight=1)
 
+def insert_UI():
+    def no():
+        global window
+        addWindow.destroy()
+        window = tk.Tk()
+        window.title("Coffee Shop Database")
+        window.geometry("800x600")
+        window.tk.call('tk', 'scaling', 2.0)  # Makes all widgets 2x as big.
+        window.configure(background=bg1)
+        window.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
+        product_table()
+
+    def yes():
+        print("yes")
+
+    global window
+    window.destroy()
+    addWindow = tk.Tk()
+    addWindow.title("Add to Product Table")
+    addWindow.geometry("800x600")
+    addWindow.tk.call('tk', 'scaling', 2.0)  # Makes all widgets 2x as big.
+    addWindow.configure(background=bg1)
+    addWindow.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
+
+    # Options
+    confirmLabel = tk.Label(addWindow, text="This action will overwrite any prexisting database with the same name, are you sure you would like to continue?", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0",)
+    yesButton = tk.Button(addWindow, text="Yes", fg=fg1, bg=gruvYellow,  highlightthickness="0", borderwidth="0", command=yes)
+    noButton = tk.Button(addWindow, text="No", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=no)
+
+    confirmLabel.grid(row=0, column=0, padx=10, pady=10)
+    confirmLabel.grid_columnconfigure(1, weight=1)
+    yesButton.grid(row=1, column=0, padx=10, pady=10)
+    yesButton.grid_columnconfigure(1, weight=1)
+    noButton.grid(row=6, column=0, padx=10, pady=10)
+    noButton.grid_columnconfigure(1, weight=1)
 
 def product_table():
     # Product table menu
     createButton = tk.Button(window, text="(Re)Create Product Table", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=create_product_table_UI)
-    addButton = tk.Button(window, text="Add new product", fg=fg1, bg=gruvYellow,  highlightthickness="0", borderwidth="0", command=backend.insert_UI)
+    addButton = tk.Button(window, text="Add new product", fg=fg1, bg=gruvYellow,  highlightthickness="0", borderwidth="0", command=insert_UI)
     updateButton = tk.Button(window, text="Update existing product", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=backend.update_UI)
     deleteButton = tk.Button(window, text="Delete existing product", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=backend.delete_UI)
     findButton = tk.Button(window, text="Find products", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=backend.select_products_UI)
