@@ -1,5 +1,5 @@
 #fix no button pls
-
+import sqlite3
 import tkinter as tk
 import backend
 import sys
@@ -15,6 +15,44 @@ gruvYellow = "#d79921"  # Called gruv yellow as yellow is already a system color
 
 
 def create_product_table_UI():
+    def no():
+        global window
+        createWindow.destroy()
+        window = tk.Tk()
+        window.title("Coffee Shop Database")
+        window.geometry("800x600")
+        window.tk.call('tk', 'scaling', 2.0)  # Makes all widgets 2x as big.
+        window.configure(background=bg1)
+        window.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
+        product_table()
+        
+    def yes():
+        db_name = "davis\'coffee_shop.db"
+        sql = """create table Product
+                (ProductID integer,
+                Name text,
+                Price real,
+                primary key(ProductID))"""
+        table_name = "Product"
+
+        with sqlite3.connect(db_name) as db:
+            cursor = db.cursor()
+            cursor.execute(
+                "select name from sqlite_master where name=?", (table_name,))
+            result = cursor.fetchall()
+            keep_table = True
+            if len(result) == 1:
+                    cursor.execute("drop table if exists {0}".format(table_name))
+                    db.commit()
+            else:
+                keep_table = False
+
+            # create the table if required (not keeping old one)
+            if not keep_table:
+                cursor.execute(sql)
+                db.commit()
+
+
     global window
     window.destroy()
     createWindow = tk.Tk()
@@ -26,8 +64,8 @@ def create_product_table_UI():
 
     # Options
     confirmLabel = tk.Label(createWindow, text="This action will overwrite any prexisting database with the same name, are you sure you would like to continue?", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0",)
-    yesButton = tk.Button(createWindow, text="Yes", fg=fg1, bg=gruvYellow,  highlightthickness="0", borderwidth="0", command=backend.create_table)
-    noButton = tk.Button(createWindow, text="No", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=sys.exit)
+    yesButton = tk.Button(createWindow, text="Yes", fg=fg1, bg=gruvYellow,  highlightthickness="0", borderwidth="0", command=yes)
+    noButton = tk.Button(createWindow, text="No", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=no)
 
     confirmLabel.grid(row=0, column=0, padx=10, pady=10)
     confirmLabel.grid_columnconfigure(1, weight=1)
