@@ -21,7 +21,7 @@ def create_product_table_UI():
         window = tk.Tk()
         window.title("Coffee Shop Database")
         window.geometry("800x600")
-        window.tk.call('tk', 'scaling', 2.0)  # Makes all widgets 2x as big.
+        window.tk.call('tk', 'scaling', 0.75)  # Makes all widgets 2x as big.
         window.configure(background=bg1)
         window.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
         product_table()
@@ -58,12 +58,12 @@ def create_product_table_UI():
     createWindow = tk.Tk()
     createWindow.title("(Re)Create Product Table")
     createWindow.geometry("800x600")
-    createWindow.tk.call('tk', 'scaling', 2.0)  # Makes all widgets 2x as big.
+    createWindow.tk.call('tk', 'scaling', 0.75)  # Makes all widgets 2x as big.
     createWindow.configure(background=bg1)
     createWindow.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
 
     # Options
-    confirmLabel = tk.Label(createWindow, text="This action will overwrite any prexisting database with the same name, are you sure you would like to continue?", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0",)
+    confirmLabel = tk.Label(createWindow, text="This action will overwrite any prexisting database with the same name,\nare you sure you would like to continue?", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0",)
     yesButton = tk.Button(createWindow, text="Yes", fg=fg1, bg=gruvYellow,  highlightthickness="0", borderwidth="0", command=yes)
     noButton = tk.Button(createWindow, text="No", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=no)
 
@@ -81,7 +81,7 @@ def insert_UI():
         window = tk.Tk()
         window.title("Coffee Shop Database")
         window.geometry("800x600")
-        window.tk.call('tk', 'scaling', 2.0)  # Makes all widgets 2x as big.
+        window.tk.call('tk', 'scaling', 0.75)  # Makes all widgets 2x as big.
         window.configure(background=bg1)
         window.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
         product_table()
@@ -94,7 +94,7 @@ def insert_UI():
     addWindow = tk.Tk()
     addWindow.title("Add to Product Table")
     addWindow.geometry("800x600")
-    addWindow.tk.call('tk', 'scaling', 2.0)  # Makes all widgets 2x as big.
+    addWindow.tk.call('tk', 'scaling', 0.75)  # Makes all widgets 2x as big.
     addWindow.configure(background=bg1)
     addWindow.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
 
@@ -144,7 +144,7 @@ def login():
         window = tk.Tk()
         window.title("Davis\' Coffee Shop Database")
         window.geometry("800x600")
-        window.tk.call('tk', 'scaling', 2.0)  # Makes all widgets 2x as big.
+        window.tk.call('tk', 'scaling', 0.75)  # Makes all widgets 2x as big.
         window.configure(background=bg1)
         window.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
         product_table()
@@ -156,15 +156,15 @@ def login():
 loginWindow = tk.Tk()
 loginWindow.title("Login")
 loginWindow.geometry("800x600")
-loginWindow.tk.call('tk', 'scaling', 2.0)  # Makes all widgets 2x as big.
+loginWindow.tk.call('tk', 'scaling', 0.75)  # Makes all widgets 2x as big.
 loginWindow.configure(background=bg1)  # Changes background color
 
 loginPassword = tk.Entry(loginWindow, fg=bg1, bg=fg1, highlightthickness="0", borderwidth="0")
 loginButton = tk.Button(loginWindow, text="Login", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=login)
 wrongPassword = tk.Label(loginWindow, text="", fg=fg1, bg=bg1)  # placeholder for wrong password label
 
-loginPassword.pack()
-loginButton.pack()
-wrongPassword.pack()
+loginPassword.pack(pady=10)
+loginButton.pack(pady=10)
+wrongPassword.pack(pady=10)
 
 loginWindow.mainloop()
