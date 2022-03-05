@@ -3,7 +3,7 @@
 
 # SQLite3 Assignment
 
-This program was made to create and edit a dictional coffee shop's sqlite database. It can however, be modified for other use cases.
+This program was made to create and edit a fictional coffee shop's sqlite database. It can however, be modified for other use cases.
 
 ## Getting Started
 
