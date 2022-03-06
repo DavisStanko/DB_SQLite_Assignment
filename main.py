@@ -158,26 +158,28 @@ def update_UI():
         window.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
         product_table()
         
-    def insert_data(values):
+    def update_product(data):
         with sqlite3.connect("coffee_shop.db") as db:
             cursor = db.cursor()
-            sql = "insert into Product (Name, Price) values (?,?)"
-            cursor.execute(sql, values)
+            sql = "update Product set Name=?, Price=? where ProductID=?"
+            cursor.execute(sql, data)
             db.commit()
         
     def yes():
+        inpID = idEntry.get()  # Get text field contents
         inpProduct = productEntry.get()  # Get text field contents
         inpCost = costEntry.get()  # Get text field contents
-        if inpProduct == "" or inpCost == "":
-            errorLabel.configure(text="Please fill in both inputs!")
+        if inpID == "" or inpProduct == "" or inpCost == "":
+            errorLabel.configure(text="Please fill in all inputs!")
         else:
             global productsAll
+            product_ID = inpID
             product_name = inpProduct
             product_price = inpCost
-            product = (product_name, product_price)
-            insert_data(product)
+            data = (product_name, product_price, product_ID)
+            update_product(data)
             no()
-            messageLabel.configure(text="Item added!")
+            messageLabel.configure(text="Item updated!")
             
     global window
     window.destroy()
@@ -190,8 +192,10 @@ def update_UI():
 
     # Options
     errorLabel = tk.Label(updateWindow, text="", fg=fg1, bg=bg1)  # placeholder for error message
-    productPromptLabel = tk.Label(updateWindow, text="Product Name:", fg=fg1, bg=bg1, highlightthickness="0", borderwidth="0")
+    idPromptLabel = tk.Label(updateWindow, text="New Product ID:", fg=fg1, bg=bg1, highlightthickness="0", borderwidth="0")
+    productPromptLabel = tk.Label(updateWindow, text="New Product Name:", fg=fg1, bg=bg1, highlightthickness="0", borderwidth="0")
     costPromptLabel = tk.Label(updateWindow, text="Cost:", fg=fg1, bg=bg1, highlightthickness="0", borderwidth="0")
+    idEntry = tk.Entry(updateWindow, fg=bg1, bg=fg1, highlightthickness="0", borderwidth="0")
     productEntry = tk.Entry(updateWindow, fg=bg1, bg=fg1, highlightthickness="0", borderwidth="0")
     costEntry = tk.Entry(updateWindow, fg=bg1, bg=fg1, highlightthickness="0", borderwidth="0")
     yesButton = tk.Button(updateWindow, text="Confirm", fg=fg1, bg=gruvYellow,  highlightthickness="0", borderwidth="0", command=yes)
@@ -199,17 +203,21 @@ def update_UI():
 
     errorLabel.grid(row=0, column=0, padx=10, pady=10)
     
-    productPromptLabel.grid(row=1, column=0, padx=10, pady=10)
+    idPromptLabel.grid(row=1, column=0, padx=10, pady=10)
+    idPromptLabel.grid_columnconfigure(1, weight=1)
+    productPromptLabel.grid(row=2, column=0, padx=10, pady=10)
     productPromptLabel.grid_columnconfigure(1, weight=1)
-    costPromptLabel.grid(row=2, column=0, padx=10, pady=10)
+    costPromptLabel.grid(row=3, column=0, padx=10, pady=10)
     costPromptLabel.grid_columnconfigure(1, weight=1)
-    productEntry.grid(row=1, column=1, padx=10, pady=10)
+    idEntry.grid(row=1, column=1, padx=10, pady=10)
+    idEntry.grid_columnconfigure(1, weight=1)
+    productEntry.grid(row=2, column=1, padx=10, pady=10)
     productEntry.grid_columnconfigure(1, weight=1)
-    costEntry.grid(row=2, column=1, padx=10, pady=10)
+    costEntry.grid(row=3, column=1, padx=10, pady=10)
     costEntry.grid_columnconfigure(1, weight=1)
-    yesButton.grid(row=3, column=0, padx=10, pady=10)
+    yesButton.grid(row=4, column=0, padx=10, pady=10)
     yesButton.grid_columnconfigure(1, weight=1)
-    noButton.grid(row=3, column=1, padx=10, pady=10)
+    noButton.grid(row=4, column=1, padx=10, pady=10)
     noButton.grid_columnconfigure(1, weight=1)
 
 def product_table():
