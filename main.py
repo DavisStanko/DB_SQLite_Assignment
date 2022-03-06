@@ -1,4 +1,3 @@
-#fix no button pls
 import sqlite3
 import tkinter as tk
 import backend
