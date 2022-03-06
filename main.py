@@ -1,5 +1,6 @@
 import sqlite3
 import tkinter as tk
+from tkinter import ttk
 import backend
 import sys
 
@@ -277,6 +278,48 @@ def delete_UI():
     noButton.grid(row=4, column=1, padx=10, pady=10)
     noButton.grid_columnconfigure(1, weight=1)
 
+def list_products_UI():
+    def no():
+        global window
+        listWindow.destroy()
+        window = tk.Tk()
+        window.title("Coffee Shop Database")
+        window.geometry("800x600")
+        window.tk.call('tk', 'scaling', 0.75)  # Makes all widgets bigger.
+        window.configure(background=bg1)
+        window.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
+        product_table()
+            
+    global window
+    window.destroy()
+    listWindow = tk.Tk()
+    listWindow.title("Delete items from the Product Table")
+    listWindow.geometry("800x600")
+    listWindow.tk.call('tk', 'scaling', 0.75)  # Makes all widgets bigger.
+    listWindow.configure(background=bg1)
+    listWindow.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
+
+    my_tree = ttk.Treeview(listWindow, columns=("ProductID", "ProductName", "Cost"))
+    
+    my_tree.heading("#0", text="", anchor=tk.W)
+    my_tree.heading("ProductID", text="ProductID", anchor=tk.W)
+    my_tree.heading("ProductName", text="ProductName", anchor=tk.W)
+    my_tree.heading("Cost", text="Cost", anchor=tk.W)
+    
+    my_tree.column("#0", width=0)
+    my_tree.column("ProductID", width=100)
+    my_tree.column("ProductName", width=100)
+    my_tree.column("Cost", width=100)
+    
+    my_tree.insert("", 0, text="ProductID", values=("ProductID", "ProductName", "Cost"))
+
+    noButton = tk.Button(listWindow, text="Cancel", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=no)
+    
+    my_tree.grid(row=0, column=0, padx=10, pady=10)
+    my_tree.grid_columnconfigure(0, weight=1)
+    noButton.grid(row=4, column=1, padx=10, pady=10)
+    noButton.grid_columnconfigure(1, weight=1)
+
 def product_table():
     global messageLabel
     # Product table menu
@@ -286,7 +329,7 @@ def product_table():
     updateButton = tk.Button(window, text="Update existing product", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=update_UI)
     deleteButton = tk.Button(window, text="Delete existing product", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=delete_UI)
     findButton = tk.Button(window, text="Find products", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=backend.select_products_UI)
-    listButton = tk.Button(window, text="List products", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=backend.list_products_UI)
+    listButton = tk.Button(window, text="List products", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=list_products_UI)
     exitButton = tk.Button(window, text="Exit", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=sys.exit)
 
     messageLabel.grid(row=0, column=0, padx=10, pady=10)

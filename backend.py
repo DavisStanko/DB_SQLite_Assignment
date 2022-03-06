@@ -44,23 +44,6 @@ def select_products_UI():
     print(select_product(product_ID))
 
 
-# DELETE #
-def delete_product(data):
-    with sqlite3.connect("coffee_shop.db") as db:
-        cursor = db.cursor()
-        sql = "delete from product where Name=?"
-        cursor.execute(sql, data)
-        db.commit()
-
-
-def delete_UI():
-    # user input is requested
-    product_ID = int(input("Please enter product ID to delete.\n"))
-    data = (product_ID,)
-    delete_product(data)
-    print("Deleted product ID number %s" % product_ID)
-
-
 # LIST sort/order products
 def list_products_UI():
     print("\nAdd DB SQL code here to list and sort products by name or price.")
