@@ -3,25 +3,6 @@ import sys
 
 ################## DB SQL Functionality ####################
 
-# UPDATE #
-def update_product(data):
-    with sqlite3.connect("coffee_shop.db") as db:
-        cursor = db.cursor()
-        sql = "update Product set Name=?, Price=? where ProductID=?"
-        cursor.execute(sql, data)
-        db.commit()
-
-
-def update_UI():
-    # user input is requested
-    product_ID = input("Please enter product ID to edit.\n")
-    product_name = input("Please enter the new name: \n")
-    print("Please enter price of %s: " % product_name)
-    product_price = input()
-    data = (product_name, product_price, product_ID)
-    update_product(data)
-
-
 # FIND #
 def select_all_products():
     global productsAll
