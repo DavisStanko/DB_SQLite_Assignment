@@ -116,7 +116,7 @@ def insert_UI():
     global window
     window.destroy()
     insertWindow = tk.Tk()
-    insertWindow.title("(Add to Product Table")
+    insertWindow.title("Add to Product Table")
     insertWindow.geometry("800x600")
     insertWindow.tk.call('tk', 'scaling', 0.75)  # Makes all widgets bigger.
     insertWindow.configure(background=bg1)
@@ -146,13 +146,79 @@ def insert_UI():
     noButton.grid(row=3, column=1, padx=10, pady=10)
     noButton.grid_columnconfigure(1, weight=1)
 
+def update_UI():
+    def no():
+        global window
+        updateWindow.destroy()
+        window = tk.Tk()
+        window.title("Coffee Shop Database")
+        window.geometry("800x600")
+        window.tk.call('tk', 'scaling', 0.75)  # Makes all widgets bigger.
+        window.configure(background=bg1)
+        window.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
+        product_table()
+        
+    def insert_data(values):
+        with sqlite3.connect("coffee_shop.db") as db:
+            cursor = db.cursor()
+            sql = "insert into Product (Name, Price) values (?,?)"
+            cursor.execute(sql, values)
+            db.commit()
+        
+    def yes():
+        inpProduct = productEntry.get()  # Get text field contents
+        inpCost = costEntry.get()  # Get text field contents
+        if inpProduct == "" or inpCost == "":
+            errorLabel.configure(text="Please fill in both inputs!")
+        else:
+            global productsAll
+            product_name = inpProduct
+            product_price = inpCost
+            product = (product_name, product_price)
+            insert_data(product)
+            no()
+            messageLabel.configure(text="Item added!")
+            
+    global window
+    window.destroy()
+    updateWindow = tk.Tk()
+    updateWindow.title("Update Product Table")
+    updateWindow.geometry("800x600")
+    updateWindow.tk.call('tk', 'scaling', 0.75)  # Makes all widgets bigger.
+    updateWindow.configure(background=bg1)
+    updateWindow.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
+
+    # Options
+    errorLabel = tk.Label(updateWindow, text="", fg=fg1, bg=bg1)  # placeholder for error message
+    productPromptLabel = tk.Label(updateWindow, text="Product Name:", fg=fg1, bg=bg1, highlightthickness="0", borderwidth="0")
+    costPromptLabel = tk.Label(updateWindow, text="Cost:", fg=fg1, bg=bg1, highlightthickness="0", borderwidth="0")
+    productEntry = tk.Entry(updateWindow, fg=bg1, bg=fg1, highlightthickness="0", borderwidth="0")
+    costEntry = tk.Entry(updateWindow, fg=bg1, bg=fg1, highlightthickness="0", borderwidth="0")
+    yesButton = tk.Button(updateWindow, text="Confirm", fg=fg1, bg=gruvYellow,  highlightthickness="0", borderwidth="0", command=yes)
+    noButton = tk.Button(updateWindow, text="Cancel", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=no)
+
+    errorLabel.grid(row=0, column=0, padx=10, pady=10)
+    
+    productPromptLabel.grid(row=1, column=0, padx=10, pady=10)
+    productPromptLabel.grid_columnconfigure(1, weight=1)
+    costPromptLabel.grid(row=2, column=0, padx=10, pady=10)
+    costPromptLabel.grid_columnconfigure(1, weight=1)
+    productEntry.grid(row=1, column=1, padx=10, pady=10)
+    productEntry.grid_columnconfigure(1, weight=1)
+    costEntry.grid(row=2, column=1, padx=10, pady=10)
+    costEntry.grid_columnconfigure(1, weight=1)
+    yesButton.grid(row=3, column=0, padx=10, pady=10)
+    yesButton.grid_columnconfigure(1, weight=1)
+    noButton.grid(row=3, column=1, padx=10, pady=10)
+    noButton.grid_columnconfigure(1, weight=1)
+
 def product_table():
     global messageLabel
     # Product table menu
     messageLabel = tk.Label(window, text="", fg=fg1, bg=bg1, highlightthickness="0", borderwidth="0")
     createButton = tk.Button(window, text="(Re)Create Product Table", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=create_product_table_UI)
     addButton = tk.Button(window, text="Add new product", fg=fg1, bg=gruvYellow,  highlightthickness="0", borderwidth="0", command=insert_UI)
-    updateButton = tk.Button(window, text="Update existing product", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=backend.update_UI)
+    updateButton = tk.Button(window, text="Update existing product", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=update_UI)
     deleteButton = tk.Button(window, text="Delete existing product", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=backend.delete_UI)
     findButton = tk.Button(window, text="Find products", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=backend.select_products_UI)
     listButton = tk.Button(window, text="List products", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=backend.list_products_UI)
@@ -174,7 +240,6 @@ def product_table():
     listButton.grid_columnconfigure(1, weight=1)
     exitButton.grid(row=7, column=0, padx=10, pady=10)
     exitButton.grid_columnconfigure(1, weight=1)
-
 
 def login():
     global window
