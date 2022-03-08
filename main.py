@@ -24,7 +24,7 @@ def create_product_table_UI():
         window.tk.call('tk', 'scaling', 0.75)  # Makes all widgets bigger.
         window.configure(background=bg1)
         window.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
-        product_table()
+        main_menu()
         
     def yes():
         global messageLabel
@@ -88,7 +88,7 @@ def insert_UI():
         window.tk.call('tk', 'scaling', 0.75)  # Makes all widgets bigger.
         window.configure(background=bg1)
         window.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
-        product_table()
+        main_menu()
         
     def insert_data(values):
         with sqlite3.connect("coffee_shop.db") as db:
@@ -156,7 +156,7 @@ def update_UI():
         window.tk.call('tk', 'scaling', 0.75)  # Makes all widgets bigger.
         window.configure(background=bg1)
         window.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
-        product_table()
+        main_menu()
         
     def update_product(data):
         with sqlite3.connect("coffee_shop.db") as db:
@@ -230,7 +230,7 @@ def delete_UI():
         window.tk.call('tk', 'scaling', 0.75)  # Makes all widgets bigger.
         window.configure(background=bg1)
         window.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
-        product_table()
+        main_menu()
         
     def delete_product(data):
         with sqlite3.connect("coffee_shop.db") as db:
@@ -288,7 +288,7 @@ def list_products_UI():
         window.tk.call('tk', 'scaling', 0.75)  # Makes all widgets bigger.
         window.configure(background=bg1)
         window.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
-        product_table()
+        main_menu()
             
     global window
     window.destroy()
@@ -320,7 +320,7 @@ def list_products_UI():
     noButton.grid(row=4, column=1, padx=10, pady=10)
     noButton.grid_columnconfigure(1, weight=1)
 
-def product_table():
+def main_menu():
     global messageLabel
     # Product table menu
     messageLabel = tk.Label(window, text="", fg=fg1, bg=bg1, highlightthickness="0", borderwidth="0")
@@ -360,7 +360,7 @@ def login():
         window.tk.call('tk', 'scaling', 0.75)  # Makes all widgets bigger.
         window.configure(background=bg1)
         window.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
-        product_table()
+        main_menu()
     else:
         wrongPassword.configure(text="Wrong password!")
 
