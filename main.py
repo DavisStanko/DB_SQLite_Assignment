@@ -278,7 +278,7 @@ def delete_UI():
     noButton.grid(row=4, column=1, padx=10, pady=10)
     noButton.grid_columnconfigure(1, weight=1)
 
-def list_products_UI():
+def find_products_UI():
     def no():
         global window
         findWindow.destroy()
@@ -289,6 +289,22 @@ def list_products_UI():
         window.configure(background=bg1)
         window.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
         main_menu()
+        
+    def select_product(id):
+        with sqlite3.connect("coffee_shop.db") as db:
+            cursor = db.cursor()
+            cursor.execute(
+                "select Name,Price from Product where ProductID=?", (id,))
+            product = cursor.fetchone()
+            return product
+        
+    def yes():
+        inpID = idEntry.get()  # Get text field contents
+        if inpID == "":
+            errorLabel.configure(text="Please fill the ID input!")
+        else:
+            answer = select_product(inpID)
+            answerLabel.configure(text=answer, fg=fg1, bg=bg1)
             
     global window
     window.destroy()
@@ -298,11 +314,27 @@ def list_products_UI():
     findWindow.tk.call('tk', 'scaling', 0.75)  # Makes all widgets bigger.
     findWindow.configure(background=bg1)
     findWindow.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
-  
+
+    # Options
+    errorLabel = tk.Label(findWindow, text="", fg=fg1, bg=bg1)  # placeholder for error message
+    idPromptLabel = tk.Label(findWindow, text="Product ID:", fg=fg1, bg=bg1, highlightthickness="0", borderwidth="0")
+    idEntry = tk.Entry(findWindow, fg=bg1, bg=fg1, highlightthickness="0", borderwidth="0")
+    yesButton = tk.Button(findWindow, text="Confirm", fg=fg1, bg=gruvYellow,  highlightthickness="0", borderwidth="0", command=yes)
     noButton = tk.Button(findWindow, text="Cancel", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=no)
+    answerLabel = tk.Label(findWindow, text="", fg=fg1, bg=bg1)  # placeholder for error message
+
+    errorLabel.grid(row=0, column=0, padx=10, pady=10)
     
-    noButton.grid(row=0, column=0, padx=10, pady=10)
+    idPromptLabel.grid(row=1, column=0, padx=10, pady=10)
+    idPromptLabel.grid_columnconfigure(1, weight=1)
+    idEntry.grid(row=1, column=1, padx=10, pady=10)
+    idEntry.grid_columnconfigure(1, weight=1)
+    yesButton.grid(row=4, column=0, padx=10, pady=10)
+    yesButton.grid_columnconfigure(1, weight=1)
+    noButton.grid(row=4, column=1, padx=10, pady=10)
     noButton.grid_columnconfigure(1, weight=1)
+    answerLabel.grid(row=5, column=0, padx=10, pady=10)
+    answerLabel.grid_columnconfigure(1, weight=1)
 
 def main_menu():
     global messageLabel
@@ -312,7 +344,7 @@ def main_menu():
     addButton = tk.Button(window, text="Add new product", fg=fg1, bg=gruvYellow,  highlightthickness="0", borderwidth="0", command=insert_UI)
     updateButton = tk.Button(window, text="Update existing product", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=update_UI)
     deleteButton = tk.Button(window, text="Delete existing product", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=delete_UI)
-    findButton = tk.Button(window, text="Find product", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=list_products_UI)
+    findButton = tk.Button(window, text="Find product", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=find_products_UI)
     exitButton = tk.Button(window, text="Exit", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=sys.exit)
 
     messageLabel.grid(row=0, column=0, padx=10, pady=10)
