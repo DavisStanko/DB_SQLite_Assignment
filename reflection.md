@@ -22,3 +22,6 @@ While I have been careful to commit often, on Friday I learned the hard way. I f
 Up until now I have more or less made my markdown documents with no formatting. I've begun using some formatting to make my documents more readable. Something that has helped with this is using VSCode. I found that when editing a markdown file in VSCode the run button gets replaced by a preview button which lets you preview your markdown file in one tab while editing in the other. I'm now one step closer to whatever this crazy text editing setup is at 1:18
 
 [**Reprinting Classical Lost Books: LindyPress.net** -Luke Smith](https://youtu.be/49ASUFQgWZE)
+
+# VSCode multiple cursors
+This program contains a lot of repetivitve code. This is not only annoying to write, but also to change later. Thankfully, with the help of VSCode's multi cusor feature I was able to write and edit multiple lines at once. My favorite hotkey was ctrl + d (different on MacOS). The function of which is to "Add Selection To Next Find Match".
