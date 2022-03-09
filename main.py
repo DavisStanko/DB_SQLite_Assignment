@@ -260,7 +260,7 @@ def delete_UI():  # Deletes a product from the database
         with sqlite3.connect("coffee_shop.db") as db:
             cursor = db.cursor()
             sql = f"delete from product where {method}=?"
-            cursor.execute(sql, data)
+            cursor.execute(sql, (data,)) # Data is formmat as a tuple. This took way too long to figure out.
             db.commit()
 
     def confirm_productID():  # Select product id to delete
