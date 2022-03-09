@@ -1,3 +1,5 @@
+# Incorrect number of bindings
+
 import sqlite3
 import tkinter as tk
 from tkinter import ttk
@@ -254,20 +256,37 @@ def delete_UI():  # Deletes a product from the database
         main_menu()
 
     def delete_product(data):  # Delete product
+        global method
         with sqlite3.connect("coffee_shop.db") as db:
             cursor = db.cursor()
-            sql = "delete from product where ProductID=?"
+            sql = f"delete from product where {method}=?"
             cursor.execute(sql, data)
             db.commit()
 
-    def yes():  # Select product to delete
+    def confirm_productID():  # Select product id to delete
         inpID = idEntry.get()  # Get text field contents
         if inpID == "":
             errorLabel.configure(text="Please fill the ID input!")
         else:
             global productsAll
+            global method
+            method = "ProductID"
             product_ID = inpID
-            data = (product_ID,)
+            data = (product_ID)
+            delete_product(data)
+            no()
+            messageLabel.configure(text="Item deleted!")
+
+    def confirm_product_name(): # Select product name to delete
+        inpID = idEntry.get()  # Get text field contents
+        if inpID == "":
+            errorLabel.configure(text="Please fill the ID input!")
+        else:
+            global productsAll
+            global method
+            method = "Name"
+            product_Name = inpID
+            data = (product_Name)
             delete_product(data)
             no()
             messageLabel.configure(text="Item deleted!")
@@ -285,7 +304,8 @@ def delete_UI():  # Deletes a product from the database
     errorLabel = tk.Label(deleteWindow, text="", fg=fg1, bg=bg1)  # placeholder for error message
     idPromptLabel = tk.Label(deleteWindow, text="Product ID:", fg=fg1, bg=bg1, highlightthickness="0", borderwidth="0")
     idEntry = tk.Entry(deleteWindow, fg=bg1, bg=fg1, highlightthickness="0", borderwidth="0")
-    yesButton = tk.Button(deleteWindow, text="Confirm", fg=fg1, bg=gruvYellow,  highlightthickness="0", borderwidth="0", command=yes)
+    confirmProductIDButton = tk.Button(deleteWindow, text="Delete ProductID", fg=fg1, bg=gruvYellow,  highlightthickness="0", borderwidth="0", command=confirm_productID)
+    confirmProductNameButton = tk.Button(deleteWindow, text="Delete Name", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=confirm_product_name)
     noButton = tk.Button(deleteWindow, text="Cancel", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=no)
 
     errorLabel.grid(row=0, column=0, padx=10, pady=10)
@@ -294,9 +314,11 @@ def delete_UI():  # Deletes a product from the database
     idPromptLabel.grid_columnconfigure(1, weight=1)
     idEntry.grid(row=1, column=1, padx=10, pady=10)
     idEntry.grid_columnconfigure(1, weight=1)
-    yesButton.grid(row=4, column=0, padx=10, pady=10)
-    yesButton.grid_columnconfigure(1, weight=1)
-    noButton.grid(row=4, column=1, padx=10, pady=10)
+    confirmProductIDButton.grid(row=4, column=0, padx=10, pady=10)
+    confirmProductIDButton.grid_columnconfigure(1, weight=1)
+    confirmProductNameButton.grid(row=4, column=1, padx=10, pady=10)
+    confirmProductNameButton.grid_columnconfigure(1, weight=1)
+    noButton.grid(row=5, column=1, padx=10, pady=10)
     noButton.grid_columnconfigure(1, weight=1)
 
 
