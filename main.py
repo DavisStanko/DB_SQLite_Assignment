@@ -24,7 +24,7 @@ def create_product_table_UI():
         window.configure(background=bg1)
         window.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
         main_menu()
-        
+
     def yes():
         global messageLabel
         db_name = "coffee_shop.db"
@@ -42,8 +42,8 @@ def create_product_table_UI():
             result = cursor.fetchall()
             keep_table = True
             if len(result) == 1:
-                    cursor.execute("drop table if exists {0}".format(table_name))
-                    db.commit()
+                cursor.execute("drop table if exists {0}".format(table_name))
+                db.commit()
             else:
                 keep_table = False
 
@@ -53,8 +53,6 @@ def create_product_table_UI():
                 db.commit()
         no()
         messageLabel.configure(text="Table created!")
-        
-
 
     global window
     window.destroy()
@@ -77,6 +75,7 @@ def create_product_table_UI():
     noButton.grid(row=6, column=0, padx=10, pady=10)
     noButton.grid_columnconfigure(1, weight=1)
 
+
 def insert_UI():
     def no():
         global window
@@ -88,14 +87,14 @@ def insert_UI():
         window.configure(background=bg1)
         window.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
         main_menu()
-        
+
     def insert_data(values):
         with sqlite3.connect("coffee_shop.db") as db:
             cursor = db.cursor()
             sql = "insert into Product (Name, Price) values (?,?)"
             cursor.execute(sql, values)
             db.commit()
-        
+
     def yes():
         inpProduct = productEntry.get()  # Get text field contents
         inpCost = costEntry.get()  # Get text field contents
@@ -109,8 +108,6 @@ def insert_UI():
             insert_data(product)
             no()
             messageLabel.configure(text="Item added!")
-        
-
 
     global window
     window.destroy()
@@ -131,7 +128,7 @@ def insert_UI():
     noButton = tk.Button(insertWindow, text="Back", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=no)
 
     errorLabel.grid(row=0, column=0, padx=10, pady=10)
-    
+
     productPromptLabel.grid(row=1, column=0, padx=10, pady=10)
     productPromptLabel.grid_columnconfigure(1, weight=1)
     costPromptLabel.grid(row=2, column=0, padx=10, pady=10)
@@ -145,6 +142,7 @@ def insert_UI():
     noButton.grid(row=3, column=1, padx=10, pady=10)
     noButton.grid_columnconfigure(1, weight=1)
 
+
 def update_UI():
     def no():
         global window
@@ -156,14 +154,14 @@ def update_UI():
         window.configure(background=bg1)
         window.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
         main_menu()
-        
+
     def update_product(data):
         with sqlite3.connect("coffee_shop.db") as db:
             cursor = db.cursor()
             sql = "update Product set Name=?, Price=? where ProductID=?"
             cursor.execute(sql, data)
             db.commit()
-        
+
     def yes():
         inpID = idEntry.get()  # Get text field contents
         inpProduct = productEntry.get()  # Get text field contents
@@ -179,7 +177,7 @@ def update_UI():
             update_product(data)
             no()
             messageLabel.configure(text="Item updated!")
-            
+
     global window
     window.destroy()
     updateWindow = tk.Tk()
@@ -201,7 +199,7 @@ def update_UI():
     noButton = tk.Button(updateWindow, text="Back", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=no)
 
     errorLabel.grid(row=0, column=0, padx=10, pady=10)
-    
+
     idPromptLabel.grid(row=1, column=0, padx=10, pady=10)
     idPromptLabel.grid_columnconfigure(1, weight=1)
     productPromptLabel.grid(row=2, column=0, padx=10, pady=10)
@@ -219,6 +217,7 @@ def update_UI():
     noButton.grid(row=4, column=1, padx=10, pady=10)
     noButton.grid_columnconfigure(1, weight=1)
 
+
 def delete_UI():
     def no():
         global window
@@ -230,14 +229,14 @@ def delete_UI():
         window.configure(background=bg1)
         window.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
         main_menu()
-        
+
     def delete_product(data):
         with sqlite3.connect("coffee_shop.db") as db:
             cursor = db.cursor()
             sql = "delete from product where ProductID=?"
             cursor.execute(sql, data)
             db.commit()
-        
+
     def yes():
         inpID = idEntry.get()  # Get text field contents
         if inpID == "":
@@ -249,7 +248,7 @@ def delete_UI():
             delete_product(data)
             no()
             messageLabel.configure(text="Item deleted!")
-            
+
     global window
     window.destroy()
     deleteWindow = tk.Tk()
@@ -267,7 +266,7 @@ def delete_UI():
     noButton = tk.Button(deleteWindow, text="Cancel", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=no)
 
     errorLabel.grid(row=0, column=0, padx=10, pady=10)
-    
+
     idPromptLabel.grid(row=1, column=0, padx=10, pady=10)
     idPromptLabel.grid_columnconfigure(1, weight=1)
     idEntry.grid(row=1, column=1, padx=10, pady=10)
@@ -276,6 +275,7 @@ def delete_UI():
     yesButton.grid_columnconfigure(1, weight=1)
     noButton.grid(row=4, column=1, padx=10, pady=10)
     noButton.grid_columnconfigure(1, weight=1)
+
 
 def find_products_UI():
     def no():
@@ -288,7 +288,7 @@ def find_products_UI():
         window.configure(background=bg1)
         window.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
         main_menu()
-        
+
     def select_product(id):
         with sqlite3.connect("coffee_shop.db") as db:
             cursor = db.cursor()
@@ -296,7 +296,7 @@ def find_products_UI():
                 "select Name,Price from Product where ProductID=?", (id,))
             product = cursor.fetchone()
             return product
-        
+
     def yes():
         inpID = idEntry.get()  # Get text field contents
         if inpID == "":
@@ -305,7 +305,7 @@ def find_products_UI():
             answer = select_product(inpID)
             nameLabel.configure(text=f"Product: {answer[0]}")
             costLabel.configure(text=f"Cost: {str(answer[1])}")
-            
+
     global window
     window.destroy()
     findWindow = tk.Tk()
@@ -325,7 +325,7 @@ def find_products_UI():
     costLabel = tk.Label(findWindow, text="", fg=fg1, bg=bg1)  # part of answer
 
     errorLabel.grid(row=0, column=0, padx=10, pady=10)
-    
+
     idPromptLabel.grid(row=1, column=0, padx=10, pady=10)
     idPromptLabel.grid_columnconfigure(1, weight=1)
     idEntry.grid(row=1, column=1, padx=10, pady=10)
@@ -339,6 +339,7 @@ def find_products_UI():
     costLabel.grid(row=5, column=1, padx=10, pady=10)
     costLabel.grid_columnconfigure(1, weight=1)
 
+
 def list_products_UI():
     def no():
         global window
@@ -350,7 +351,7 @@ def list_products_UI():
         window.configure(background=bg1)
         window.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
         main_menu()
-        
+
     def sort():
         global direction
         with sqlite3.connect("coffee_shop.db") as db:
@@ -360,17 +361,17 @@ def list_products_UI():
             productList.delete(0, tk.END)
             for product in products:
                 productList.insert(tk.END, product)
-        
+
     def asc():
         global direction
         direction = "ASC"
         sort()
-       
+
     def desc():
         global direction
         direction = "DESC"
-        sort()        
-    
+        sort()
+
     def yes():
         with sqlite3.connect("coffee_shop.db") as db:
             cursor = db.cursor()
@@ -379,7 +380,7 @@ def list_products_UI():
             productList.delete(0, tk.END)
             for product in products:
                 productList.insert(tk.END, product)
-                
+
     global window
     window.destroy()
     listWindow = tk.Tk()
@@ -395,7 +396,7 @@ def list_products_UI():
     sortNameDescButton = tk.Button(listWindow, text="Sort Name Descending", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=desc)
     noButton = tk.Button(listWindow, text="Back", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=no)
     productList = tk.Listbox(listWindow, fg=fg1, bg=bg1, highlightthickness="0", borderwidth="0")
-    
+
     errorLabel.grid(row=0, column=0, padx=10, pady=10)
     errorLabel.grid_columnconfigure(1, weight=1)
     productList.grid(row=1, column=0, padx=10, pady=10)
@@ -407,8 +408,8 @@ def list_products_UI():
     noButton.grid(row=4, column=0, padx=10, pady=10)
     noButton.grid_columnconfigure(1, weight=1)
 
-
     yes()
+
 
 def main_menu():
     global messageLabel
@@ -438,6 +439,7 @@ def main_menu():
     listButton.grid_columnconfigure(1, weight=1)
     exitButton.grid(row=7, column=0, padx=10, pady=10)
     exitButton.grid_columnconfigure(1, weight=1)
+
 
 def login():
     global window
