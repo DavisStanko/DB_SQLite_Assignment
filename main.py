@@ -192,9 +192,9 @@ def update_UI():
 
     # Options
     errorLabel = tk.Label(updateWindow, text="", fg=fg1, bg=bg1)  # placeholder for error message
-    idPromptLabel = tk.Label(updateWindow, text="New Product ID:", fg=fg1, bg=bg1, highlightthickness="0", borderwidth="0")
+    idPromptLabel = tk.Label(updateWindow, text="Product ID:", fg=fg1, bg=bg1, highlightthickness="0", borderwidth="0")
     productPromptLabel = tk.Label(updateWindow, text="New Product Name:", fg=fg1, bg=bg1, highlightthickness="0", borderwidth="0")
-    costPromptLabel = tk.Label(updateWindow, text="Cost:", fg=fg1, bg=bg1, highlightthickness="0", borderwidth="0")
+    costPromptLabel = tk.Label(updateWindow, text="New Cost:", fg=fg1, bg=bg1, highlightthickness="0", borderwidth="0")
     idEntry = tk.Entry(updateWindow, fg=bg1, bg=fg1, highlightthickness="0", borderwidth="0")
     productEntry = tk.Entry(updateWindow, fg=bg1, bg=fg1, highlightthickness="0", borderwidth="0")
     costEntry = tk.Entry(updateWindow, fg=bg1, bg=fg1, highlightthickness="0", borderwidth="0")
@@ -304,7 +304,8 @@ def find_products_UI():
             errorLabel.configure(text="Please fill the ID input!")
         else:
             answer = select_product(inpID)
-            answerLabel.configure(text=answer, fg=fg1, bg=bg1)
+            nameLabel.configure(text=f"Product: {answer[0]}")
+            costLabel.configure(text=f"Cost: {str(answer[1])}")
             
     global window
     window.destroy()
@@ -321,7 +322,8 @@ def find_products_UI():
     idEntry = tk.Entry(findWindow, fg=bg1, bg=fg1, highlightthickness="0", borderwidth="0")
     yesButton = tk.Button(findWindow, text="Confirm", fg=fg1, bg=gruvYellow,  highlightthickness="0", borderwidth="0", command=yes)
     noButton = tk.Button(findWindow, text="Cancel", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=no)
-    answerLabel = tk.Label(findWindow, text="", fg=fg1, bg=bg1)  # placeholder for error message
+    nameLabel = tk.Label(findWindow, text="", fg=fg1, bg=bg1)  # part of answer
+    costLabel = tk.Label(findWindow, text="", fg=fg1, bg=bg1)  # part of answer
 
     errorLabel.grid(row=0, column=0, padx=10, pady=10)
     
@@ -333,8 +335,10 @@ def find_products_UI():
     yesButton.grid_columnconfigure(1, weight=1)
     noButton.grid(row=4, column=1, padx=10, pady=10)
     noButton.grid_columnconfigure(1, weight=1)
-    answerLabel.grid(row=5, column=0, padx=10, pady=10)
-    answerLabel.grid_columnconfigure(1, weight=1)
+    nameLabel.grid(row=5, column=0, padx=10, pady=10)
+    nameLabel.grid_columnconfigure(1, weight=1)
+    costLabel.grid(row=5, column=1, padx=10, pady=10)
+    costLabel.grid_columnconfigure(1, weight=1)
 
 def main_menu():
     global messageLabel
