@@ -351,6 +351,26 @@ def list_products_UI():
         window.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
         main_menu()
         
+    def sort():
+        global direction
+        with sqlite3.connect("coffee_shop.db") as db:
+            cursor = db.cursor()
+            cursor.execute(f"select * from Product order by Name {direction}")
+            products = cursor.fetchall()
+            productList.delete(0, tk.END)
+            for product in products:
+                productList.insert(tk.END, product)
+        
+    def asc():
+        global direction
+        direction = "ASC"
+        sort()
+       
+    def desc():
+        global direction
+        direction = "DESC"
+        sort()        
+    
     def yes():
         with sqlite3.connect("coffee_shop.db") as db:
             cursor = db.cursor()
@@ -370,16 +390,24 @@ def list_products_UI():
     listWindow.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
 
     # Options
-    errorLabel = tk.Label(listWindow, text="If there are over 10 rows of data, the list is scrollable.", fg=fg1, bg=bg1)  # placeholder for error message
+    errorLabel = tk.Label(listWindow, text="Don't see all your data?\nTry scrolling!", fg=gruvYellow, bg=bg1)  # placeholder for error message
+    sortNameAscButton = tk.Button(listWindow, text="Sort Name Ascending", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=asc)
+    sortNameDescButton = tk.Button(listWindow, text="Sort Name Descending", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=desc)
     noButton = tk.Button(listWindow, text="Back", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=no)
     productList = tk.Listbox(listWindow, fg=fg1, bg=bg1, highlightthickness="0", borderwidth="0")
-
+    
     errorLabel.grid(row=0, column=0, padx=10, pady=10)
     errorLabel.grid_columnconfigure(1, weight=1)
-    noButton.grid(row=1, column=0, padx=10, pady=10)
-    noButton.grid_columnconfigure(1, weight=1)
-    productList.grid(row=2, column=0, padx=10, pady=10)
+    productList.grid(row=1, column=0, padx=10, pady=10)
     productList.grid_columnconfigure(1, weight=1)
+    sortNameAscButton.grid(row=2, column=0, padx=10, pady=10)
+    sortNameAscButton.grid_columnconfigure(1, weight=1)
+    sortNameDescButton.grid(row=3, column=0, padx=10, pady=10)
+    sortNameDescButton.grid_columnconfigure(1, weight=1)
+    noButton.grid(row=4, column=0, padx=10, pady=10)
+    noButton.grid_columnconfigure(1, weight=1)
+
+
     yes()
 
 def main_menu():
