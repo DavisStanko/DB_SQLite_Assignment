@@ -3,14 +3,25 @@ import tkinter as tk
 from tkinter import ttk
 import sys
 
-# Naming color hexcodes
-# Taken from Gruvbox Dark theme
-bg0 = "#282828"
-bg1 = "#3c3836"
-bg2 = "#504945"
-bg3 = "#665c54"
-fg1 = "#ebdbb2"
-gruvYellow = "#d79921"  # Called gruv yellow as yellow is already a system color
+
+def dark_theme():  # Dark theme hexcodes
+    global bg1
+    global fg1
+    global gruvYellow
+    # Taken from Gruvbox Dark theme
+    bg1 = "#3c3836"
+    fg1 = "#ebdbb2"
+    gruvYellow = "#d79921"  # Called gruv yellow as yellow is already a system color
+
+
+def light_theme():  # Light theme hexcodes
+    global bg1
+    global fg1
+    global gruvYellow
+    # Taken from Gruvbox Light theme
+    bg1 = "#ebdbb2"
+    fg1 = "#3c3836"
+    gruvYellow = "#d79921"  # Called gruv yellow as yellow is already a system color
 
 
 def create_product_table_UI():  # (Re)Creates the product table
@@ -219,7 +230,7 @@ def update_UI():
 
 
 def delete_UI():
-    def no(): # Close window
+    def no():  # Close window
         global window
         deleteWindow.destroy()
         window = tk.Tk()
@@ -230,14 +241,14 @@ def delete_UI():
         window.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
         main_menu()
 
-    def delete_product(data): # Delete product
+    def delete_product(data):  # Delete product
         with sqlite3.connect("coffee_shop.db") as db:
             cursor = db.cursor()
             sql = "delete from product where ProductID=?"
             cursor.execute(sql, data)
             db.commit()
 
-    def yes(): # Select product to delete
+    def yes():  # Select product to delete
         inpID = idEntry.get()  # Get text field contents
         if inpID == "":
             errorLabel.configure(text="Please fill the ID input!")
@@ -278,7 +289,7 @@ def delete_UI():
 
 
 def find_products_UI():
-    def no(): # Close window
+    def no():  # Close window
         global window
         findWindow.destroy()
         window = tk.Tk()
@@ -289,7 +300,7 @@ def find_products_UI():
         window.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
         main_menu()
 
-    def select_product(id): # Get product info
+    def select_product(id):  # Get product info
         with sqlite3.connect("coffee_shop.db") as db:
             cursor = db.cursor()
             cursor.execute(
@@ -297,7 +308,7 @@ def find_products_UI():
             product = cursor.fetchone()
             return product
 
-    def yes(): # Display product info
+    def yes():  # Display product info
         inpID = idEntry.get()  # Get text field contents
         if inpID == "":
             errorLabel.configure(text="Please fill the ID input!")
@@ -341,7 +352,7 @@ def find_products_UI():
 
 
 def list_products_UI():
-    def no(): # Close window
+    def no():  # Close window
         global window
         listWindow.destroy()
         window = tk.Tk()
@@ -352,7 +363,7 @@ def list_products_UI():
         window.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
         main_menu()
 
-    def sort(): # Sort by given variables
+    def sort():  # Sort by given variables
         global direction
         global catagory
         with sqlite3.connect("coffee_shop.db") as db:
@@ -363,19 +374,19 @@ def list_products_UI():
             for product in products:
                 productList.insert(tk.END, product)
 
-    def asc(): #Set the direction to ascending
+    def asc():  # Set the direction to ascending
         global direction
         direction = "ASC"
 
-    def desc(): # Set the direction to desc
+    def desc():  # Set the direction to desc
         global direction
         direction = "DESC"
 
-    def name(): # Set the catagory to name
+    def name():  # Set the catagory to name
         global catagory
         catagory = "Name"
 
-    def price(): # Set the catagory to price
+    def price():  # Set the catagory to price
         global catagory
         catagory = "Price"
 
@@ -390,10 +401,10 @@ def list_products_UI():
 
    # Tkinter widgets
     errorLabel = tk.Label(listWindow, text="Don't see all your data?\nTry scrolling!", fg=gruvYellow, bg=bg1)  # placeholder for error message
-    sortNameAscButton = tk.Button(listWindow, text="Sort Name Ascending", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0",  command = lambda : (asc(), name(), sort()))
-    sortNameDescButton = tk.Button(listWindow, text="Sort Name Descending", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command = lambda : (desc(), name(), sort()))
-    sortPriceAscButton = tk.Button(listWindow, text="Sort Cost Ascending", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command = lambda : (asc(), price(), sort()))
-    sortPriceDescButton = tk.Button(listWindow, text="Sort Cost Descending", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command = lambda : (desc(), price(), sort()))
+    sortNameAscButton = tk.Button(listWindow, text="Sort Name Ascending", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0",  command=lambda: (asc(), name(), sort()))
+    sortNameDescButton = tk.Button(listWindow, text="Sort Name Descending", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=lambda: (desc(), name(), sort()))
+    sortPriceAscButton = tk.Button(listWindow, text="Sort Cost Ascending", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=lambda: (asc(), price(), sort()))
+    sortPriceDescButton = tk.Button(listWindow, text="Sort Cost Descending", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=lambda: (desc(), price(), sort()))
     noButton = tk.Button(listWindow, text="Back", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=no)
     productList = tk.Listbox(listWindow, fg=fg1, bg=bg1, highlightthickness="0", borderwidth="0")
 
@@ -412,7 +423,7 @@ def list_products_UI():
     noButton.grid(row=6, column=0, padx=10, pady=10)
     noButton.grid_columnconfigure(1, weight=1)
 
-    #Display the list of products
+    # Display the list of products
     with sqlite3.connect("coffee_shop.db") as db:
         cursor = db.cursor()
         cursor.execute("select * from Product")
@@ -469,6 +480,7 @@ def login():
 
 
 # FIRST WINDOW
+dark_theme()  # Default theme
 loginWindow = tk.Tk()
 loginWindow.title("Login")
 loginWindow.geometry("800x600")
@@ -478,9 +490,13 @@ loginWindow.configure(background=bg1)  # Changes background color
 loginPassword = tk.Entry(loginWindow, fg=bg1, bg=fg1, highlightthickness="0", borderwidth="0")
 loginButton = tk.Button(loginWindow, text="Login", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=login)
 wrongPassword = tk.Label(loginWindow, text="", fg=fg1, bg=bg1)  # placeholder for wrong password label
+darkThemeButton = tk.Button(loginWindow, text="Dark Theme", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=dark_theme)
+lightThemeButton = tk.Button(loginWindow, text="Light Theme", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=light_theme)
 
 loginPassword.pack(pady=10)
 loginButton.pack(pady=10)
 wrongPassword.pack(pady=10)
+darkThemeButton.pack(pady=10)
+lightThemeButton.pack(pady=10)
 
 loginWindow.mainloop()
