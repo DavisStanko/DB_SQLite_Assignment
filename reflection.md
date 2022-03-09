@@ -13,6 +13,9 @@ createWindow.tk.call('tk', 'scaling', 2.0)
 ```
  makes widgets half size and that I should enter a value below 1.0 to achive scaled up widgets. I must not have noticed this mistake in replit's smaller tkinter window space.
 
+## Listbox Widget
+This is the first project  have made using the listbox widget. For the most part, there is little tinkering required when using it. One built in feature I appreciate is the selection of items. This supports ctrl + c to copy the items for use elseswhere. Very useful in a project like this! 
+
 # Git and GitHub
 This project has allowed me to become more familiar with Git and GitHub since I no longer have the ability to rely on replit's cloud sync. I have found it quite easy to use and understand through VSCodes source control panel. This is due in part to the fact that this is a solo project and I do not have to content with conflicts in between branches. Creating new branches, fetching, and making pull requests seems easy enough but I've yet to have the need to try. 
 

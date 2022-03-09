@@ -370,19 +370,17 @@ def list_products_UI():
     listWindow.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
 
     # Options
-    errorLabel = tk.Label(listWindow, text="", fg=fg1, bg=bg1)  # placeholder for error message
-    yesButton = tk.Button(listWindow, text="List", fg=fg1, bg=gruvYellow,  highlightthickness="0", borderwidth="0", command=yes)
+    errorLabel = tk.Label(listWindow, text="If there are over 10 rows of data, the list is scrollable.", fg=fg1, bg=bg1)  # placeholder for error message
     noButton = tk.Button(listWindow, text="Back", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=no)
     productList = tk.Listbox(listWindow, fg=fg1, bg=bg1, highlightthickness="0", borderwidth="0")
 
     errorLabel.grid(row=0, column=0, padx=10, pady=10)
     errorLabel.grid_columnconfigure(1, weight=1)
-    yesButton.grid(row=1, column=0, padx=10, pady=10)
-    yesButton.grid_columnconfigure(1, weight=1)
-    noButton.grid(row=1, column=1, padx=10, pady=10)
+    noButton.grid(row=1, column=0, padx=10, pady=10)
     noButton.grid_columnconfigure(1, weight=1)
     productList.grid(row=2, column=0, padx=10, pady=10)
     productList.grid_columnconfigure(1, weight=1)
+    yes()
 
 def main_menu():
     global messageLabel
