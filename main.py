@@ -68,8 +68,8 @@ def create_product_table_UI():
 
     # Options
     confirmLabel = tk.Label(createWindow, text="This action will overwrite any prexisting database with the same name,\nare you sure you would like to continue?", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0",)
-    yesButton = tk.Button(createWindow, text="Yes", fg=fg1, bg=gruvYellow,  highlightthickness="0", borderwidth="0", command=yes)
-    noButton = tk.Button(createWindow, text="No", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=no)
+    yesButton = tk.Button(createWindow, text="Proceed", fg=fg1, bg=gruvYellow,  highlightthickness="0", borderwidth="0", command=yes)
+    noButton = tk.Button(createWindow, text="Back", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=no)
 
     confirmLabel.grid(row=0, column=0, padx=10, pady=10)
     confirmLabel.grid_columnconfigure(1, weight=1)
@@ -129,7 +129,7 @@ def insert_UI():
     productEntry = tk.Entry(insertWindow, fg=bg1, bg=fg1, highlightthickness="0", borderwidth="0")
     costEntry = tk.Entry(insertWindow, fg=bg1, bg=fg1, highlightthickness="0", borderwidth="0")
     yesButton = tk.Button(insertWindow, text="Confirm", fg=fg1, bg=gruvYellow,  highlightthickness="0", borderwidth="0", command=yes)
-    noButton = tk.Button(insertWindow, text="Cancel", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=no)
+    noButton = tk.Button(insertWindow, text="Back", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=no)
 
     errorLabel.grid(row=0, column=0, padx=10, pady=10)
     
@@ -199,7 +199,7 @@ def update_UI():
     productEntry = tk.Entry(updateWindow, fg=bg1, bg=fg1, highlightthickness="0", borderwidth="0")
     costEntry = tk.Entry(updateWindow, fg=bg1, bg=fg1, highlightthickness="0", borderwidth="0")
     yesButton = tk.Button(updateWindow, text="Confirm", fg=fg1, bg=gruvYellow,  highlightthickness="0", borderwidth="0", command=yes)
-    noButton = tk.Button(updateWindow, text="Cancel", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=no)
+    noButton = tk.Button(updateWindow, text="Back", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=no)
 
     errorLabel.grid(row=0, column=0, padx=10, pady=10)
     
@@ -249,7 +249,7 @@ def delete_UI():
             data = (product_ID,)
             delete_product(data)
             no()
-            messageLabel.configure(text="Item updated!")
+            messageLabel.configure(text="Item deleted!")
             
     global window
     window.destroy()
@@ -320,8 +320,8 @@ def find_products_UI():
     errorLabel = tk.Label(findWindow, text="", fg=fg1, bg=bg1)  # placeholder for error message
     idPromptLabel = tk.Label(findWindow, text="Product ID:", fg=fg1, bg=bg1, highlightthickness="0", borderwidth="0")
     idEntry = tk.Entry(findWindow, fg=bg1, bg=fg1, highlightthickness="0", borderwidth="0")
-    yesButton = tk.Button(findWindow, text="Confirm", fg=fg1, bg=gruvYellow,  highlightthickness="0", borderwidth="0", command=yes)
-    noButton = tk.Button(findWindow, text="Cancel", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=no)
+    yesButton = tk.Button(findWindow, text="Search", fg=fg1, bg=gruvYellow,  highlightthickness="0", borderwidth="0", command=yes)
+    noButton = tk.Button(findWindow, text="Back", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=no)
     nameLabel = tk.Label(findWindow, text="", fg=fg1, bg=bg1)  # part of answer
     costLabel = tk.Label(findWindow, text="", fg=fg1, bg=bg1)  # part of answer
 
