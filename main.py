@@ -3,6 +3,16 @@ import tkinter as tk
 from tkinter import ttk
 import sys
 
+# Defualt theme
+bg1 = "#3c3836"
+fg1 = "#ebdbb2"
+gruvYellow = "#d79921"  # Called gruv yellow as yellow is already a system color
+
+
+def changed_theme():
+    global errorLabel
+    errorLabel.configure(text="Theme will change after login.")
+
 
 def dark_theme():  # Dark theme hexcodes
     global bg1
@@ -12,6 +22,7 @@ def dark_theme():  # Dark theme hexcodes
     bg1 = "#3c3836"
     fg1 = "#ebdbb2"
     gruvYellow = "#d79921"  # Called gruv yellow as yellow is already a system color
+    changed_theme()
 
 
 def light_theme():  # Light theme hexcodes
@@ -22,6 +33,7 @@ def light_theme():  # Light theme hexcodes
     bg1 = "#ebdbb2"
     fg1 = "#3c3836"
     gruvYellow = "#d79921"  # Called gruv yellow as yellow is already a system color
+    changed_theme()
 
 
 def create_product_table_UI():  # (Re)Creates the product table
@@ -87,7 +99,7 @@ def create_product_table_UI():  # (Re)Creates the product table
     noButton.grid_columnconfigure(1, weight=1)
 
 
-def insert_UI():
+def insert_UI():  # Inserts a new product into the database
     def no():
         global window
         insertWindow.destroy()
@@ -154,7 +166,7 @@ def insert_UI():
     noButton.grid_columnconfigure(1, weight=1)
 
 
-def update_UI():
+def update_UI():  # Updates a product in the database
     def no():
         global window
         updateWindow.destroy()
@@ -229,7 +241,7 @@ def update_UI():
     noButton.grid_columnconfigure(1, weight=1)
 
 
-def delete_UI():
+def delete_UI():  # Deletes a product from the database
     def no():  # Close window
         global window
         deleteWindow.destroy()
@@ -288,7 +300,7 @@ def delete_UI():
     noButton.grid_columnconfigure(1, weight=1)
 
 
-def find_products_UI():
+def find_products_UI():  # Find products in the database
     def no():  # Close window
         global window
         findWindow.destroy()
@@ -351,7 +363,7 @@ def find_products_UI():
     costLabel.grid_columnconfigure(1, weight=1)
 
 
-def list_products_UI():
+def list_products_UI():  # List all products in the database
     def no():  # Close window
         global window
         listWindow.destroy()
@@ -433,10 +445,9 @@ def list_products_UI():
             productList.insert(tk.END, product)
 
 
-def main_menu():
+def main_menu():  # Main menu
     global messageLabel
-    # Product table menu
-    messageLabel = tk.Label(window, text="", fg=fg1, bg=bg1, highlightthickness="0", borderwidth="0")
+    messageLabel = tk.Label(window, text="", fg=fg1, bg=bg1, highlightthickness="0", borderwidth="0")  # Used by submenus to display messages
     createButton = tk.Button(window, text="(Re)Create Product Table", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=create_product_table_UI)
     addButton = tk.Button(window, text="Add new product", fg=fg1, bg=gruvYellow,  highlightthickness="0", borderwidth="0", command=insert_UI)
     updateButton = tk.Button(window, text="Update existing product", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=update_UI)
@@ -463,7 +474,7 @@ def main_menu():
     exitButton.grid_columnconfigure(1, weight=1)
 
 
-def login():
+def login():  # Login to the program
     global window
     inp = loginPassword.get()  # Get text field contents
     if inp == "password":
@@ -476,26 +487,26 @@ def login():
         window.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
         main_menu()
     else:
-        wrongPassword.configure(text="Wrong password!")
+        errorLabel.configure(text="Wrong password!")
 
 
 # FIRST WINDOW
-dark_theme()  # Default theme
 loginWindow = tk.Tk()
 loginWindow.title("Login")
 loginWindow.geometry("800x600")
 loginWindow.tk.call('tk', 'scaling', 0.75)  # Makes all widgets bigger.
 loginWindow.configure(background=bg1)  # Changes background color
 
+errorLabel = tk.Label(loginWindow, text="", fg=fg1, bg=bg1)  # placeholder for wrong password label
 loginPassword = tk.Entry(loginWindow, fg=bg1, bg=fg1, highlightthickness="0", borderwidth="0")
 loginButton = tk.Button(loginWindow, text="Login", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=login)
-wrongPassword = tk.Label(loginWindow, text="", fg=fg1, bg=bg1)  # placeholder for wrong password label
 darkThemeButton = tk.Button(loginWindow, text="Dark Theme", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=dark_theme)
 lightThemeButton = tk.Button(loginWindow, text="Light Theme", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=light_theme)
 
+
+errorLabel.pack(pady=10)
 loginPassword.pack(pady=10)
 loginButton.pack(pady=10)
-wrongPassword.pack(pady=10)
 darkThemeButton.pack(pady=10)
 lightThemeButton.pack(pady=10)
 
