@@ -340,6 +340,51 @@ def find_products_UI():
     costLabel.grid(row=5, column=1, padx=10, pady=10)
     costLabel.grid_columnconfigure(1, weight=1)
 
+def list_products_UI():
+    def no():
+        global window
+        listWindow.destroy()
+        window = tk.Tk()
+        window.title("Coffee Shop Database")
+        window.geometry("800x600")
+        window.tk.call('tk', 'scaling', 0.75)  # Makes all widgets bigger.
+        window.configure(background=bg1)
+        window.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
+        main_menu()
+        
+    def yes():
+        with sqlite3.connect("coffee_shop.db") as db:
+            cursor = db.cursor()
+            cursor.execute("select * from Product")
+            products = cursor.fetchall()
+            productList.delete(0, tk.END)
+            for product in products:
+                productList.insert(tk.END, product)
+                
+    global window
+    window.destroy()
+    listWindow = tk.Tk()
+    listWindow.title("List all products")
+    listWindow.geometry("800x600")
+    listWindow.tk.call('tk', 'scaling', 0.75)  # Makes all widgets bigger.
+    listWindow.configure(background=bg1)
+    listWindow.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
+
+    # Options
+    errorLabel = tk.Label(listWindow, text="", fg=fg1, bg=bg1)  # placeholder for error message
+    yesButton = tk.Button(listWindow, text="List", fg=fg1, bg=gruvYellow,  highlightthickness="0", borderwidth="0", command=yes)
+    noButton = tk.Button(listWindow, text="Back", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=no)
+    productList = tk.Listbox(listWindow, fg=fg1, bg=bg1, highlightthickness="0", borderwidth="0")
+
+    errorLabel.grid(row=0, column=0, padx=10, pady=10)
+    errorLabel.grid_columnconfigure(1, weight=1)
+    yesButton.grid(row=1, column=0, padx=10, pady=10)
+    yesButton.grid_columnconfigure(1, weight=1)
+    noButton.grid(row=1, column=1, padx=10, pady=10)
+    noButton.grid_columnconfigure(1, weight=1)
+    productList.grid(row=2, column=0, padx=10, pady=10)
+    productList.grid_columnconfigure(1, weight=1)
+
 def main_menu():
     global messageLabel
     # Product table menu
@@ -349,6 +394,7 @@ def main_menu():
     updateButton = tk.Button(window, text="Update existing product", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=update_UI)
     deleteButton = tk.Button(window, text="Delete existing product", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=delete_UI)
     findButton = tk.Button(window, text="Find product", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=find_products_UI)
+    listButton = tk.Button(window, text="List all products", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=list_products_UI)
     exitButton = tk.Button(window, text="Exit", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=sys.exit)
 
     messageLabel.grid(row=0, column=0, padx=10, pady=10)
@@ -363,7 +409,9 @@ def main_menu():
     deleteButton.grid_columnconfigure(1, weight=1)
     findButton.grid(row=5, column=0, padx=10, pady=10)
     findButton.grid_columnconfigure(1, weight=1)
-    exitButton.grid(row=6, column=0, padx=10, pady=10)
+    listButton.grid(row=6, column=0, padx=10, pady=10)
+    listButton.grid_columnconfigure(1, weight=1)
+    exitButton.grid(row=7, column=0, padx=10, pady=10)
     exitButton.grid_columnconfigure(1, weight=1)
 
 def login():
