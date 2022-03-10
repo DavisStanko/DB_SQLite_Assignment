@@ -1,10 +1,9 @@
-# Incorrect number of bindings
-
 from email import message
 import sqlite3
 import tkinter as tk
 from tkinter import ttk
 import sys
+import csv
 
 # Defualt theme
 bg1 = "#3c3836"
@@ -88,7 +87,7 @@ def create_product_table_UI():  # (Re)Creates the product table
     createWindow.configure(background=bg1)
 
    # Tkinter widgets
-    confirmLabel = tk.Label(createWindow, text="This action will overwrite any prexisting database with the same name,\nare you sure you would like to continue?", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0",)
+    confirmLabel = tk.Label(createWindow, text="This action will overwrite any prexisting database with the same name,\nare you sure you would like to continue?", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0")
     proceedButton = tk.Button(createWindow, text="Proceed", fg=fg1, bg=gruvYellow,  highlightthickness="0", borderwidth="0", command=proceed)
     backButton = tk.Button(createWindow, text="Back", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=back)
 
@@ -322,8 +321,7 @@ def find_products_UI():  # Find products in the database
     def select_product(id):  # Get product info
         with sqlite3.connect("coffee_shop.db") as db:
             cursor = db.cursor()
-            cursor.execute(
-                "select Name,Price from Product where ProductID=?", (id,))
+            cursor.execute("select Name,Price from Product where ProductID=?", (id,))
             product = cursor.fetchone()
             return product
 
@@ -443,6 +441,17 @@ def list_products_UI():  # List all products in the database
             productList.insert(tk.END, product)
 
 
+def backup_database_UI():  # Backup database. Thanks for the help Prem.
+    with sqlite3.connect("coffee_shop.db") as db:
+        cursor = db.cursor()
+        cursor.execute("select * from Product")
+        with open("coffee_shop.csv", "w") as csv_file:
+            csv_writer = csv.writer(csv_file, delimiter="\t")
+            csv_writer.writerow([i[0] for i in cursor.description])
+            csv_writer.writerows(cursor)
+    messageLabel.configure(text="Backed up to CSV!")
+
+
 def main_menu():  # Main menu
     global messageLabel
     messageLabel = tk.Label(window, text="", fg=fg1, bg=bg1, highlightthickness="0", borderwidth="0")  # Used by submenus to display messages
@@ -452,6 +461,7 @@ def main_menu():  # Main menu
     deleteButton = tk.Button(window, text="Delete existing product", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=delete_UI)
     findButton = tk.Button(window, text="Find product", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=find_products_UI)
     listButton = tk.Button(window, text="List all products", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=list_products_UI)
+    backupButton = tk.Button(window, text="Backup database", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=backup_database_UI)
     exitButton = tk.Button(window, text="Exit", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=sys.exit)
 
     messageLabel.pack(anchor="n", pady=10)
@@ -461,6 +471,7 @@ def main_menu():  # Main menu
     deleteButton.pack(pady=10)
     findButton.pack(pady=10)
     listButton.pack(pady=10)
+    backupButton.pack(pady=10)
     exitButton.pack(pady=10)
 
 
