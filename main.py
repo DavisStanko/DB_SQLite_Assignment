@@ -1,7 +1,6 @@
 from email import message
 import sqlite3
 import tkinter as tk
-from tkinter import ttk
 import sys
 from datetime import datetime
 import csv
