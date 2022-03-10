@@ -374,7 +374,7 @@ def list_products_UI():  # List all products in the database
         listWindow.destroy()
         window = tk.Tk()
         window.title("Coffee Shop Database")
-        window.geometry("800x600")
+        window.geometry("800x700")
         window.tk.call('tk', 'scaling', 0.75)  # Makes all widgets bigger.
         window.configure(background=bg1)
         main_menu()
@@ -502,17 +502,21 @@ loginWindow.geometry("800x600")
 loginWindow.tk.call('tk', 'scaling', 0.75)  # Makes all widgets bigger.
 loginWindow.configure(background=bg1)  # Changes background color
 
-errorLabel = tk.Label(loginWindow, text="", fg=fg1, bg=bg1)  # placeholder for wrong password label
+
+promptLabel = tk.Label(loginWindow, text="Password:", fg=fg1, bg=bg1, highlightthickness="0", borderwidth="0")
 loginPassword = tk.Entry(loginWindow, fg=bg1, bg=fg1, highlightthickness="0", borderwidth="0")
+errorLabel = tk.Label(loginWindow, text="", fg=fg1, bg=bg1)  # placeholder for wrong password label
 loginButton = tk.Button(loginWindow, text="Login", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=login)
 darkThemeButton = tk.Button(loginWindow, text="Dark Theme", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=dark_theme)
 lightThemeButton = tk.Button(loginWindow, text="Light Theme", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=light_theme)
 
 
-errorLabel.pack(pady=10)
+promptLabel.pack(pady=10)
 loginPassword.pack(pady=10)
+errorLabel.pack(pady=10)
 loginButton.pack(pady=10)
 darkThemeButton.pack(pady=10)
 lightThemeButton.pack(pady=10)
 
 loginWindow.mainloop()
+
