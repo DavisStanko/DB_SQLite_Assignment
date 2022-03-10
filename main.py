@@ -43,7 +43,7 @@ def create_product_table_UI():  # (Re)Creates the product table
         global window
         createWindow.destroy()
         window = tk.Tk()
-        window.title("Coffee Shop Database")
+        window.title("Davis\' Coffee Shop Database")
         window.geometry("800x600")
         window.tk.call('tk', 'scaling', 0.75)  # Makes all widgets bigger.
         window.configure(background=bg1)
@@ -61,8 +61,7 @@ def create_product_table_UI():  # (Re)Creates the product table
 
         with sqlite3.connect(db_name) as db:
             cursor = db.cursor()
-            cursor.execute(
-                "select name from sqlite_master where name=?", (table_name,))
+            cursor.execute("select name from sqlite_master where name=?", (table_name,))
             result = cursor.fetchall()
             keep_table = True
             if len(result) == 1:
@@ -76,7 +75,7 @@ def create_product_table_UI():  # (Re)Creates the product table
                 cursor.execute(sql)
                 db.commit()
         back()
-        messageLabel.configure(text="Table created!")
+        messageLabel.configure(text="Table created! A restart may be needed before further editing.")
 
     global window
     window.destroy()
@@ -87,7 +86,7 @@ def create_product_table_UI():  # (Re)Creates the product table
     createWindow.configure(background=bg1)
 
    # Tkinter widgets
-    confirmLabel = tk.Label(createWindow, text="This action will overwrite any prexisting database with the same name,\nare you sure you would like to continue?", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0")
+    confirmLabel = tk.Label(createWindow, text="This action will overwrite any prexisting database with the same name,\nare you sure you would like to continue?", fg=fg1, bg=bg1)
     proceedButton = tk.Button(createWindow, text="Proceed", fg=fg1, bg=gruvYellow,  highlightthickness="0", borderwidth="0", command=proceed)
     backButton = tk.Button(createWindow, text="Back", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=back)
 
@@ -101,7 +100,7 @@ def insert_UI():  # Inserts a new product into the database
         global window
         insertWindow.destroy()
         window = tk.Tk()
-        window.title("Coffee Shop Database")
+        window.title("Davis\' Coffee Shop Database")
         window.geometry("800x600")
         window.tk.call('tk', 'scaling', 0.75)  # Makes all widgets bigger.
         window.configure(background=bg1)
@@ -167,7 +166,7 @@ def update_UI():  # Updates a product in the database
         global window
         updateWindow.destroy()
         window = tk.Tk()
-        window.title("Coffee Shop Database")
+        window.title("Davis\' Coffee Shop Database")
         window.geometry("800x600")
         window.tk.call('tk', 'scaling', 0.75)  # Makes all widgets bigger.
         window.configure(background=bg1)
@@ -241,7 +240,7 @@ def delete_UI():  # Deletes a product from the database
         global window
         deleteWindow.destroy()
         window = tk.Tk()
-        window.title("Coffee Shop Database")
+        window.title("Davis\' Coffee Shop Database")
         window.geometry("800x600")
         window.tk.call('tk', 'scaling', 0.75)  # Makes all widgets bigger.
         window.configure(background=bg1)
@@ -312,7 +311,7 @@ def find_products_UI():  # Find products in the database
         global window
         findWindow.destroy()
         window = tk.Tk()
-        window.title("Coffee Shop Database")
+        window.title("Davis\' Coffee Shop Database")
         window.geometry("800x600")
         window.tk.call('tk', 'scaling', 0.75)  # Makes all widgets bigger.
         window.configure(background=bg1)
@@ -337,7 +336,7 @@ def find_products_UI():  # Find products in the database
     global window
     window.destroy()
     findWindow = tk.Tk()
-    findWindow.title("Delete items from the Product Table")
+    findWindow.title("Search the Product Table")
     findWindow.geometry("800x600")
     findWindow.tk.call('tk', 'scaling', 0.75)  # Makes all widgets bigger.
     findWindow.configure(background=bg1)
@@ -373,13 +372,13 @@ def list_products_UI():  # List all products in the database
         global window
         listWindow.destroy()
         window = tk.Tk()
-        window.title("Coffee Shop Database")
-        window.geometry("800x700")
+        window.title("Davis\' Coffee Shop Database")
+        window.geometry("800x600")
         window.tk.call('tk', 'scaling', 0.75)  # Makes all widgets bigger.
         window.configure(background=bg1)
         main_menu()
 
-    def sort():  # Sort by given variables
+    def sort():  # Sort by given variables. This is purely visual. It does not sort the actual database.
         global direction
         global catagory
         with sqlite3.connect("coffee_shop.db") as db:
@@ -410,7 +409,7 @@ def list_products_UI():  # List all products in the database
     window.destroy()
     listWindow = tk.Tk()
     listWindow.title("List all products")
-    listWindow.geometry("800x600")
+    listWindow.geometry("800x700")
     listWindow.tk.call('tk', 'scaling', 0.75)  # Makes all widgets bigger.
     listWindow.configure(background=bg1)
 
