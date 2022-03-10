@@ -3,6 +3,7 @@ import sqlite3
 import tkinter as tk
 from tkinter import ttk
 import sys
+from datetime import datetime
 import csv
 
 # Defualt theme
@@ -441,14 +442,18 @@ def list_products_UI():  # List all products in the database
             productList.insert(tk.END, product)
 
 
-def backup_database_UI():  # Backup database. Thanks for the help Prem.
+def backup_database_UI():  # Backup database
     with sqlite3.connect("coffee_shop.db") as db:
         cursor = db.cursor()
         cursor.execute("select * from Product")
-        with open("coffee_shop.csv", "w") as csv_file:
+        with open("coffee_shop.csv", "w") as csv_file:  # Write to csv file
             csv_writer = csv.writer(csv_file, delimiter="\t")
             csv_writer.writerow([i[0] for i in cursor.description])
             csv_writer.writerows(cursor)
+            now = datetime.now()
+            datestamp = now.strftime("%m/%d/%Y")  # Get the current date
+            timestamp = now.strftime("%H:%M:%S")  # Get timestamp
+            csv_writer.writerow(["Timestamp", datestamp, timestamp])  # Write timestamp
     messageLabel.configure(text="Backed up to CSV!")
 
 
