@@ -25,7 +25,7 @@ Once you have made a database, simply use the main menu to find the functions yo
   - [Product DB Skeleton](https://kprdsb.elearningontario.ca/d2l/le/lessons/20168687/topics/177979224) - Used as a starting point for the backend code.
 
 
-## Authors
+## Author
 
   - **Davis Stanko** - *Lead Developer* -
     [Website](https://davisstanko.com)
