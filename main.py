@@ -1,5 +1,6 @@
 # Incorrect number of bindings
 
+from email import message
 import sqlite3
 import tkinter as tk
 from tkinter import ttk
@@ -47,7 +48,6 @@ def create_product_table_UI():  # (Re)Creates the product table
         window.geometry("800x600")
         window.tk.call('tk', 'scaling', 0.75)  # Makes all widgets bigger.
         window.configure(background=bg1)
-        window.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
         main_menu()
 
     def proceed():
@@ -86,19 +86,15 @@ def create_product_table_UI():  # (Re)Creates the product table
     createWindow.geometry("800x600")
     createWindow.tk.call('tk', 'scaling', 0.75)  # Makes all widgets bigger.
     createWindow.configure(background=bg1)
-    createWindow.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
 
    # Tkinter widgets
     confirmLabel = tk.Label(createWindow, text="This action will overwrite any prexisting database with the same name,\nare you sure you would like to continue?", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0",)
     proceedButton = tk.Button(createWindow, text="Proceed", fg=fg1, bg=gruvYellow,  highlightthickness="0", borderwidth="0", command=proceed)
     backButton = tk.Button(createWindow, text="Back", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=back)
 
-    confirmLabel.grid(row=0, column=0, padx=10, pady=10)
-    confirmLabel.grid_columnconfigure(1, weight=1)
-    proceedButton.grid(row=1, column=0, padx=10, pady=10)
-    proceedButton.grid_columnconfigure(1, weight=1)
-    backButton.grid(row=6, column=0, padx=10, pady=10)
-    backButton.grid_columnconfigure(1, weight=1)
+    confirmLabel.pack(anchor="n",  pady=10)
+    proceedButton.pack(pady=10)
+    backButton.pack(pady=10)
 
 
 def insert_UI():  # Inserts a new product into the database
@@ -110,7 +106,6 @@ def insert_UI():  # Inserts a new product into the database
         window.geometry("800x600")
         window.tk.call('tk', 'scaling', 0.75)  # Makes all widgets bigger.
         window.configure(background=bg1)
-        window.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
         main_menu()
 
     def insert_data(values):
@@ -177,7 +172,6 @@ def update_UI():  # Updates a product in the database
         window.geometry("800x600")
         window.tk.call('tk', 'scaling', 0.75)  # Makes all widgets bigger.
         window.configure(background=bg1)
-        window.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
         main_menu()
 
     def update_product(data):
@@ -252,7 +246,6 @@ def delete_UI():  # Deletes a product from the database
         window.geometry("800x600")
         window.tk.call('tk', 'scaling', 0.75)  # Makes all widgets bigger.
         window.configure(background=bg1)
-        window.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
         main_menu()
 
     def delete_product(data):  # Delete product
@@ -260,7 +253,7 @@ def delete_UI():  # Deletes a product from the database
         with sqlite3.connect("coffee_shop.db") as db:
             cursor = db.cursor()
             sql = f"delete from product where {method}=?"
-            cursor.execute(sql, (data,)) # Data is formmat as a tuple. This took way too long to figure out.
+            cursor.execute(sql, (data,))  # Data is formmat as a tuple. This took way too long to figure out.
             db.commit()
 
     def confirm_productID():  # Select product id to delete
@@ -277,7 +270,7 @@ def delete_UI():  # Deletes a product from the database
             cancel()
             messageLabel.configure(text="Item deleted!")
 
-    def confirm_product_name(): # Select product name to delete
+    def confirm_product_name():  # Select product name to delete
         inpID = idEntry.get()  # Get text field contents
         if inpID == "":
             errorLabel.configure(text="Please fill the ID input!")
@@ -298,28 +291,21 @@ def delete_UI():  # Deletes a product from the database
     deleteWindow.geometry("800x600")
     deleteWindow.tk.call('tk', 'scaling', 0.75)  # Makes all widgets bigger.
     deleteWindow.configure(background=bg1)
-    deleteWindow.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
 
     # TKinter widgets
     errorLabel = tk.Label(deleteWindow, text="", fg=fg1, bg=bg1)  # placeholder for error message
-    idPromptLabel = tk.Label(deleteWindow, text="Product ID:", fg=fg1, bg=bg1, highlightthickness="0", borderwidth="0")
+    idPromptLabel = tk.Label(deleteWindow, text="Input Product ID or name:\nBe sure to select the correct option.", fg=fg1, bg=bg1, highlightthickness="0", borderwidth="0")
     idEntry = tk.Entry(deleteWindow, fg=bg1, bg=fg1, highlightthickness="0", borderwidth="0")
     confirmProductIDButton = tk.Button(deleteWindow, text="Delete ProductID", fg=fg1, bg=gruvYellow,  highlightthickness="0", borderwidth="0", command=confirm_productID)
     confirmProductNameButton = tk.Button(deleteWindow, text="Delete Name", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=confirm_product_name)
     cancelButton = tk.Button(deleteWindow, text="Cancel", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=cancel)
 
-    errorLabel.grid(row=0, column=0, padx=10, pady=10)
-
-    idPromptLabel.grid(row=1, column=0, padx=10, pady=10)
-    idPromptLabel.grid_columnconfigure(1, weight=1)
-    idEntry.grid(row=1, column=1, padx=10, pady=10)
-    idEntry.grid_columnconfigure(1, weight=1)
-    confirmProductIDButton.grid(row=4, column=0, padx=10, pady=10)
-    confirmProductIDButton.grid_columnconfigure(1, weight=1)
-    confirmProductNameButton.grid(row=4, column=1, padx=10, pady=10)
-    confirmProductNameButton.grid_columnconfigure(1, weight=1)
-    cancelButton.grid(row=5, column=1, padx=10, pady=10)
-    cancelButton.grid_columnconfigure(1, weight=1)
+    errorLabel.pack(anchor="n", pady=10)
+    idPromptLabel.pack(pady=10)
+    idEntry.pack(pady=10)
+    confirmProductIDButton.pack(pady=10)
+    confirmProductNameButton.pack(pady=10)
+    cancelButton.pack(pady=10)
 
 
 def find_products_UI():  # Find products in the database
@@ -331,7 +317,6 @@ def find_products_UI():  # Find products in the database
         window.geometry("800x600")
         window.tk.call('tk', 'scaling', 0.75)  # Makes all widgets bigger.
         window.configure(background=bg1)
-        window.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
         main_menu()
 
     def select_product(id):  # Get product info
@@ -394,7 +379,6 @@ def list_products_UI():  # List all products in the database
         window.geometry("800x600")
         window.tk.call('tk', 'scaling', 0.75)  # Makes all widgets bigger.
         window.configure(background=bg1)
-        window.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
         main_menu()
 
     def sort():  # Sort by given variables
@@ -431,31 +415,23 @@ def list_products_UI():  # List all products in the database
     listWindow.geometry("800x600")
     listWindow.tk.call('tk', 'scaling', 0.75)  # Makes all widgets bigger.
     listWindow.configure(background=bg1)
-    listWindow.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
 
    # Tkinter widgets
-    errorLabel = tk.Label(listWindow, text="Don't see all your data?\nTry scrolling!", fg=gruvYellow, bg=bg1)  # placeholder for error message
+    helpLabel = tk.Label(listWindow, text="Don't see all your data?\nTry scrolling!", fg=gruvYellow, bg=bg1)  # placeholder for error message
+    productList = tk.Listbox(listWindow, fg=fg1, bg=bg1, highlightthickness="0", borderwidth="0")
     sortNameAscButton = tk.Button(listWindow, text="Sort Name Ascending", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0",  command=lambda: (asc(), name(), sort()))
     sortNameDescButton = tk.Button(listWindow, text="Sort Name Descending", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=lambda: (desc(), name(), sort()))
     sortPriceAscButton = tk.Button(listWindow, text="Sort Cost Ascending", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=lambda: (asc(), price(), sort()))
     sortPriceDescButton = tk.Button(listWindow, text="Sort Cost Descending", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=lambda: (desc(), price(), sort()))
     backButton = tk.Button(listWindow, text="Back", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=back)
-    productList = tk.Listbox(listWindow, fg=fg1, bg=bg1, highlightthickness="0", borderwidth="0")
 
-    errorLabel.grid(row=0, column=0, padx=10, pady=10)
-    errorLabel.grid_columnconfigure(1, weight=1)
-    productList.grid(row=1, column=0, padx=10, pady=10)
-    productList.grid_columnconfigure(1, weight=1)
-    sortNameAscButton.grid(row=2, column=0, padx=10, pady=10)
-    sortNameAscButton.grid_columnconfigure(1, weight=1)
-    sortPriceAscButton.grid(row=3, column=0, padx=10, pady=10)
-    sortPriceAscButton.grid_columnconfigure(1, weight=1)
-    sortPriceDescButton.grid(row=4, column=0, padx=10, pady=10)
-    sortPriceDescButton.grid_columnconfigure(1, weight=1)
-    sortNameDescButton.grid(row=5, column=0, padx=10, pady=10)
-    sortNameDescButton.grid_columnconfigure(1, weight=1)
-    backButton.grid(row=6, column=0, padx=10, pady=10)
-    backButton.grid_columnconfigure(1, weight=1)
+    helpLabel.pack(anchor="n", pady=10)
+    productList.pack(pady=10)
+    sortNameAscButton.pack(pady=10)
+    sortNameDescButton.pack(pady=10)
+    sortPriceAscButton.pack(pady=10)
+    sortPriceDescButton.pack(pady=10)
+    backButton.pack(pady=10)
 
     # Display the list of products
     with sqlite3.connect("coffee_shop.db") as db:
@@ -478,22 +454,14 @@ def main_menu():  # Main menu
     listButton = tk.Button(window, text="List all products", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=list_products_UI)
     exitButton = tk.Button(window, text="Exit", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=sys.exit)
 
-    messageLabel.grid(row=0, column=0, padx=10, pady=10)
-    messageLabel.grid_columnconfigure(1, weight=1)
-    createButton.grid(row=1, column=0, padx=10, pady=10)
-    createButton.grid_columnconfigure(1, weight=1)
-    addButton.grid(row=2, column=0, padx=10, pady=10)
-    addButton.grid_columnconfigure(1, weight=1)
-    updateButton.grid(row=3, column=0, padx=10, pady=10)
-    updateButton.grid_columnconfigure(1, weight=1)
-    deleteButton.grid(row=4, column=0, padx=10, pady=10)
-    deleteButton.grid_columnconfigure(1, weight=1)
-    findButton.grid(row=5, column=0, padx=10, pady=10)
-    findButton.grid_columnconfigure(1, weight=1)
-    listButton.grid(row=6, column=0, padx=10, pady=10)
-    listButton.grid_columnconfigure(1, weight=1)
-    exitButton.grid(row=7, column=0, padx=10, pady=10)
-    exitButton.grid_columnconfigure(1, weight=1)
+    messageLabel.pack(anchor="n", pady=10)
+    createButton.pack(pady=10)
+    addButton.pack(pady=10)
+    updateButton.pack(pady=10)
+    deleteButton.pack(pady=10)
+    findButton.pack(pady=10)
+    listButton.pack(pady=10)
+    exitButton.pack(pady=10)
 
 
 def login():  # Login to the program
