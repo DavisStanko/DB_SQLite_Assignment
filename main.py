@@ -39,7 +39,7 @@ def light_theme():  # Light theme hexcodes
 
 
 def create_product_table_UI():  # (Re)Creates the product table
-    def no():
+    def back():
         global window
         createWindow.destroy()
         window = tk.Tk()
@@ -50,7 +50,7 @@ def create_product_table_UI():  # (Re)Creates the product table
         window.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
         main_menu()
 
-    def yes():
+    def proceed():
         global messageLabel
         db_name = "coffee_shop.db"
         sql = """create table Product
@@ -76,7 +76,7 @@ def create_product_table_UI():  # (Re)Creates the product table
             if not keep_table:
                 cursor.execute(sql)
                 db.commit()
-        no()
+        back()
         messageLabel.configure(text="Table created!")
 
     global window
@@ -90,8 +90,8 @@ def create_product_table_UI():  # (Re)Creates the product table
 
    # Tkinter widgets
     confirmLabel = tk.Label(createWindow, text="This action will overwrite any prexisting database with the same name,\nare you sure you would like to continue?", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0",)
-    yesButton = tk.Button(createWindow, text="Proceed", fg=fg1, bg=gruvYellow,  highlightthickness="0", borderwidth="0", command=yes)
-    noButton = tk.Button(createWindow, text="Back", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=no)
+    yesButton = tk.Button(createWindow, text="Proceed", fg=fg1, bg=gruvYellow,  highlightthickness="0", borderwidth="0", command=proceed)
+    noButton = tk.Button(createWindow, text="Back", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=back)
 
     confirmLabel.grid(row=0, column=0, padx=10, pady=10)
     confirmLabel.grid_columnconfigure(1, weight=1)
