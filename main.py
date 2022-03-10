@@ -75,7 +75,7 @@ def create_product_table_UI():  # (Re)Creates the product table
                 cursor.execute(sql)
                 db.commit()
         back()
-        messageLabel.configure(text="Table created! A restart may be needed before further editing.")
+        messageLabel.configure(text="Table created!")
 
     global window
     window.destroy()
