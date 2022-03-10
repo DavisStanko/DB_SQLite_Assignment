@@ -134,7 +134,7 @@ def insert_UI():  # Inserts a new product into the database
     insertWindow.geometry("800x600")
     insertWindow.tk.call('tk', 'scaling', 0.75)  # Makes all widgets bigger.
     insertWindow.configure(background=bg1)
-    insertWindow.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
+    insertWindow.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window. Used to center widgets.
 
    # Tkinter widgets
     errorLabel = tk.Label(insertWindow, text="", fg=fg1, bg=bg1)  # placeholder for error message
@@ -202,7 +202,7 @@ def update_UI():  # Updates a product in the database
     updateWindow.geometry("800x600")
     updateWindow.tk.call('tk', 'scaling', 0.75)  # Makes all widgets bigger.
     updateWindow.configure(background=bg1)
-    updateWindow.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
+    updateWindow.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window. Used to center widgets.
 
    # Tkinter widgets
     errorLabel = tk.Label(updateWindow, text="", fg=fg1, bg=bg1)  # placeholder for error message
@@ -340,7 +340,7 @@ def find_products_UI():  # Find products in the database
     findWindow.geometry("800x600")
     findWindow.tk.call('tk', 'scaling', 0.75)  # Makes all widgets bigger.
     findWindow.configure(background=bg1)
-    findWindow.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
+    findWindow.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window. Used to center widgets.
 
    # Tkinter widgets
     errorLabel = tk.Label(findWindow, text="", fg=fg1, bg=bg1)  # placeholder for error message
@@ -488,7 +488,7 @@ def login():  # Login to the program
         window.geometry("800x600")
         window.tk.call('tk', 'scaling', 0.75)  # Makes all widgets bigger.
         window.configure(background=bg1)
-        window.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window.
+        window.grid_columnconfigure(0, weight=1)  # Makes the column stretch to fill the window. Used to center widgets.
         main_menu()
     else:
         errorLabel.configure(text="Wrong password!")
