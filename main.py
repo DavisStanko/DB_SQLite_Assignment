@@ -90,19 +90,19 @@ def create_product_table_UI():  # (Re)Creates the product table
 
    # Tkinter widgets
     confirmLabel = tk.Label(createWindow, text="This action will overwrite any prexisting database with the same name,\nare you sure you would like to continue?", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0",)
-    yesButton = tk.Button(createWindow, text="Proceed", fg=fg1, bg=gruvYellow,  highlightthickness="0", borderwidth="0", command=proceed)
-    noButton = tk.Button(createWindow, text="Back", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=back)
+    proceedButton = tk.Button(createWindow, text="Proceed", fg=fg1, bg=gruvYellow,  highlightthickness="0", borderwidth="0", command=proceed)
+    backButton = tk.Button(createWindow, text="Back", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=back)
 
     confirmLabel.grid(row=0, column=0, padx=10, pady=10)
     confirmLabel.grid_columnconfigure(1, weight=1)
-    yesButton.grid(row=1, column=0, padx=10, pady=10)
-    yesButton.grid_columnconfigure(1, weight=1)
-    noButton.grid(row=6, column=0, padx=10, pady=10)
-    noButton.grid_columnconfigure(1, weight=1)
+    proceedButton.grid(row=1, column=0, padx=10, pady=10)
+    proceedButton.grid_columnconfigure(1, weight=1)
+    backButton.grid(row=6, column=0, padx=10, pady=10)
+    backButton.grid_columnconfigure(1, weight=1)
 
 
 def insert_UI():  # Inserts a new product into the database
-    def no():
+    def back():
         global window
         insertWindow.destroy()
         window = tk.Tk()
@@ -120,7 +120,7 @@ def insert_UI():  # Inserts a new product into the database
             cursor.execute(sql, values)
             db.commit()
 
-    def yes():
+    def confirm():
         inpProduct = productEntry.get()  # Get text field contents
         inpCost = costEntry.get()  # Get text field contents
         if inpProduct == "" or inpCost == "":
@@ -131,7 +131,7 @@ def insert_UI():  # Inserts a new product into the database
             product_price = inpCost
             product = (product_name, product_price)
             insert_data(product)
-            no()
+            back()
             messageLabel.configure(text="Item added!")
 
     global window
@@ -149,8 +149,8 @@ def insert_UI():  # Inserts a new product into the database
     costPromptLabel = tk.Label(insertWindow, text="Cost:", fg=fg1, bg=bg1, highlightthickness="0", borderwidth="0")
     productEntry = tk.Entry(insertWindow, fg=bg1, bg=fg1, highlightthickness="0", borderwidth="0")
     costEntry = tk.Entry(insertWindow, fg=bg1, bg=fg1, highlightthickness="0", borderwidth="0")
-    yesButton = tk.Button(insertWindow, text="Confirm", fg=fg1, bg=gruvYellow,  highlightthickness="0", borderwidth="0", command=yes)
-    noButton = tk.Button(insertWindow, text="Back", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=no)
+    confirmButton = tk.Button(insertWindow, text="Confirm", fg=fg1, bg=gruvYellow,  highlightthickness="0", borderwidth="0", command=confirm)
+    backButton = tk.Button(insertWindow, text="Back", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=back)
 
     errorLabel.grid(row=0, column=0, padx=10, pady=10)
 
@@ -162,14 +162,14 @@ def insert_UI():  # Inserts a new product into the database
     productEntry.grid_columnconfigure(1, weight=1)
     costEntry.grid(row=2, column=1, padx=10, pady=10)
     costEntry.grid_columnconfigure(1, weight=1)
-    yesButton.grid(row=3, column=0, padx=10, pady=10)
-    yesButton.grid_columnconfigure(1, weight=1)
-    noButton.grid(row=3, column=1, padx=10, pady=10)
-    noButton.grid_columnconfigure(1, weight=1)
+    confirmButton.grid(row=3, column=0, padx=10, pady=10)
+    confirmButton.grid_columnconfigure(1, weight=1)
+    backButton.grid(row=3, column=1, padx=10, pady=10)
+    backButton.grid_columnconfigure(1, weight=1)
 
 
 def update_UI():  # Updates a product in the database
-    def no():
+    def back():
         global window
         updateWindow.destroy()
         window = tk.Tk()
@@ -187,7 +187,7 @@ def update_UI():  # Updates a product in the database
             cursor.execute(sql, data)
             db.commit()
 
-    def yes():
+    def confirm():
         inpID = idEntry.get()  # Get text field contents
         inpProduct = productEntry.get()  # Get text field contents
         inpCost = costEntry.get()  # Get text field contents
@@ -200,7 +200,7 @@ def update_UI():  # Updates a product in the database
             product_price = inpCost
             data = (product_name, product_price, product_ID)
             update_product(data)
-            no()
+            back()
             messageLabel.configure(text="Item updated!")
 
     global window
@@ -220,8 +220,8 @@ def update_UI():  # Updates a product in the database
     idEntry = tk.Entry(updateWindow, fg=bg1, bg=fg1, highlightthickness="0", borderwidth="0")
     productEntry = tk.Entry(updateWindow, fg=bg1, bg=fg1, highlightthickness="0", borderwidth="0")
     costEntry = tk.Entry(updateWindow, fg=bg1, bg=fg1, highlightthickness="0", borderwidth="0")
-    yesButton = tk.Button(updateWindow, text="Confirm", fg=fg1, bg=gruvYellow,  highlightthickness="0", borderwidth="0", command=yes)
-    noButton = tk.Button(updateWindow, text="Back", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=no)
+    confirmButton = tk.Button(updateWindow, text="Confirm", fg=fg1, bg=gruvYellow,  highlightthickness="0", borderwidth="0", command=confirm)
+    backButton = tk.Button(updateWindow, text="Back", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=back)
 
     errorLabel.grid(row=0, column=0, padx=10, pady=10)
 
@@ -237,14 +237,14 @@ def update_UI():  # Updates a product in the database
     productEntry.grid_columnconfigure(1, weight=1)
     costEntry.grid(row=3, column=1, padx=10, pady=10)
     costEntry.grid_columnconfigure(1, weight=1)
-    yesButton.grid(row=4, column=0, padx=10, pady=10)
-    yesButton.grid_columnconfigure(1, weight=1)
-    noButton.grid(row=4, column=1, padx=10, pady=10)
-    noButton.grid_columnconfigure(1, weight=1)
+    confirmButton.grid(row=4, column=0, padx=10, pady=10)
+    confirmButton.grid_columnconfigure(1, weight=1)
+    backButton.grid(row=4, column=1, padx=10, pady=10)
+    backButton.grid_columnconfigure(1, weight=1)
 
 
 def delete_UI():  # Deletes a product from the database
-    def no():  # Close window
+    def cancel():  # Close window
         global window
         deleteWindow.destroy()
         window = tk.Tk()
@@ -274,7 +274,7 @@ def delete_UI():  # Deletes a product from the database
             product_ID = inpID
             data = (product_ID)
             delete_product(data)
-            no()
+            cancel()
             messageLabel.configure(text="Item deleted!")
 
     def confirm_product_name(): # Select product name to delete
@@ -288,7 +288,7 @@ def delete_UI():  # Deletes a product from the database
             product_Name = inpID
             data = (product_Name)
             delete_product(data)
-            no()
+            cancel()
             messageLabel.configure(text="Item deleted!")
 
     global window
@@ -306,7 +306,7 @@ def delete_UI():  # Deletes a product from the database
     idEntry = tk.Entry(deleteWindow, fg=bg1, bg=fg1, highlightthickness="0", borderwidth="0")
     confirmProductIDButton = tk.Button(deleteWindow, text="Delete ProductID", fg=fg1, bg=gruvYellow,  highlightthickness="0", borderwidth="0", command=confirm_productID)
     confirmProductNameButton = tk.Button(deleteWindow, text="Delete Name", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=confirm_product_name)
-    noButton = tk.Button(deleteWindow, text="Cancel", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=no)
+    cancelButton = tk.Button(deleteWindow, text="Cancel", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=cancel)
 
     errorLabel.grid(row=0, column=0, padx=10, pady=10)
 
@@ -318,12 +318,12 @@ def delete_UI():  # Deletes a product from the database
     confirmProductIDButton.grid_columnconfigure(1, weight=1)
     confirmProductNameButton.grid(row=4, column=1, padx=10, pady=10)
     confirmProductNameButton.grid_columnconfigure(1, weight=1)
-    noButton.grid(row=5, column=1, padx=10, pady=10)
-    noButton.grid_columnconfigure(1, weight=1)
+    cancelButton.grid(row=5, column=1, padx=10, pady=10)
+    cancelButton.grid_columnconfigure(1, weight=1)
 
 
 def find_products_UI():  # Find products in the database
-    def no():  # Close window
+    def back():  # Close window
         global window
         findWindow.destroy()
         window = tk.Tk()
@@ -342,7 +342,7 @@ def find_products_UI():  # Find products in the database
             product = cursor.fetchone()
             return product
 
-    def yes():  # Display product info
+    def search():  # Display product info
         inpID = idEntry.get()  # Get text field contents
         if inpID == "":
             errorLabel.configure(text="Please fill the ID input!")
@@ -364,8 +364,8 @@ def find_products_UI():  # Find products in the database
     errorLabel = tk.Label(findWindow, text="", fg=fg1, bg=bg1)  # placeholder for error message
     idPromptLabel = tk.Label(findWindow, text="Product ID:", fg=fg1, bg=bg1, highlightthickness="0", borderwidth="0")
     idEntry = tk.Entry(findWindow, fg=bg1, bg=fg1, highlightthickness="0", borderwidth="0")
-    yesButton = tk.Button(findWindow, text="Search", fg=fg1, bg=gruvYellow,  highlightthickness="0", borderwidth="0", command=yes)
-    noButton = tk.Button(findWindow, text="Back", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=no)
+    searchButton = tk.Button(findWindow, text="Search", fg=fg1, bg=gruvYellow,  highlightthickness="0", borderwidth="0", command=search)
+    backButton = tk.Button(findWindow, text="Back", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=back)
     nameLabel = tk.Label(findWindow, text="", fg=fg1, bg=bg1)  # part of answer
     costLabel = tk.Label(findWindow, text="", fg=fg1, bg=bg1)  # part of answer
 
@@ -375,10 +375,10 @@ def find_products_UI():  # Find products in the database
     idPromptLabel.grid_columnconfigure(1, weight=1)
     idEntry.grid(row=1, column=1, padx=10, pady=10)
     idEntry.grid_columnconfigure(1, weight=1)
-    yesButton.grid(row=4, column=0, padx=10, pady=10)
-    yesButton.grid_columnconfigure(1, weight=1)
-    noButton.grid(row=4, column=1, padx=10, pady=10)
-    noButton.grid_columnconfigure(1, weight=1)
+    searchButton.grid(row=4, column=0, padx=10, pady=10)
+    searchButton.grid_columnconfigure(1, weight=1)
+    backButton.grid(row=4, column=1, padx=10, pady=10)
+    backButton.grid_columnconfigure(1, weight=1)
     nameLabel.grid(row=5, column=0, padx=10, pady=10)
     nameLabel.grid_columnconfigure(1, weight=1)
     costLabel.grid(row=5, column=1, padx=10, pady=10)
@@ -386,7 +386,7 @@ def find_products_UI():  # Find products in the database
 
 
 def list_products_UI():  # List all products in the database
-    def no():  # Close window
+    def back():  # Close window
         global window
         listWindow.destroy()
         window = tk.Tk()
@@ -439,7 +439,7 @@ def list_products_UI():  # List all products in the database
     sortNameDescButton = tk.Button(listWindow, text="Sort Name Descending", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=lambda: (desc(), name(), sort()))
     sortPriceAscButton = tk.Button(listWindow, text="Sort Cost Ascending", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=lambda: (asc(), price(), sort()))
     sortPriceDescButton = tk.Button(listWindow, text="Sort Cost Descending", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=lambda: (desc(), price(), sort()))
-    noButton = tk.Button(listWindow, text="Back", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=no)
+    backButton = tk.Button(listWindow, text="Back", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=back)
     productList = tk.Listbox(listWindow, fg=fg1, bg=bg1, highlightthickness="0", borderwidth="0")
 
     errorLabel.grid(row=0, column=0, padx=10, pady=10)
@@ -454,8 +454,8 @@ def list_products_UI():  # List all products in the database
     sortPriceDescButton.grid_columnconfigure(1, weight=1)
     sortNameDescButton.grid(row=5, column=0, padx=10, pady=10)
     sortNameDescButton.grid_columnconfigure(1, weight=1)
-    noButton.grid(row=6, column=0, padx=10, pady=10)
-    noButton.grid_columnconfigure(1, weight=1)
+    backButton.grid(row=6, column=0, padx=10, pady=10)
+    backButton.grid_columnconfigure(1, weight=1)
 
     # Display the list of products
     with sqlite3.connect("coffee_shop.db") as db:
