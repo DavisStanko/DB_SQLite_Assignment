@@ -1,11 +1,13 @@
 # SQLite3 Assignment
+
 This program was made to create and edit a fictional coffee shop's sqlite database. It can however, be modified for other use cases.
 
 ## Getting Started
 
 ### Prerequisites
 
-Please be sure to install the following before running the program. 
+Please be sure to install the following before running the program.
+
 - Python 3.x
 - Tkinter
 - SQLite
@@ -22,14 +24,13 @@ Once you have made a database, simply use the main menu to find the functions yo
 
 ## Built With
 
-  - [Product DB Skeleton](https://kprdsb.elearningontario.ca/d2l/le/lessons/20168687/topics/177979224) - Used as a starting point for the backend code.
-
+- [Product DB Skeleton](https://kprdsb.elearningontario.ca/d2l/le/lessons/20168687/topics/177979224) - Used as a starting point for the backend code.
 
 ## Author
 
-  - **Davis Stanko** - *Lead Developer* -
+- **Davis Stanko** - *Lead Developer* -
     [Website](https://davisstanko.com)
-    
+
 ## License
 
 This project is licensed under the [GPL-3.0](LICENSE.md)
