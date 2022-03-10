@@ -292,7 +292,7 @@ def delete_UI():  # Deletes a product from the database
 
     # TKinter widgets
     errorLabel = tk.Label(deleteWindow, text="", fg=fg1, bg=bg1)  # placeholder for error message
-    idPromptLabel = tk.Label(deleteWindow, text="Input Product ID or name:\nBe sure to select the correct option.", fg=fg1, bg=bg1, highlightthickness="0", borderwidth="0")
+    idPromptLabel = tk.Label(deleteWindow, text="Input Product ID or name:\nBe sure to select the correct option.\nNames are case sensitive.", fg=fg1, bg=bg1, highlightthickness="0", borderwidth="0")
     idEntry = tk.Entry(deleteWindow, fg=bg1, bg=fg1, highlightthickness="0", borderwidth="0")
     confirmProductIDButton = tk.Button(deleteWindow, text="Delete ProductID", fg=fg1, bg=gruvYellow,  highlightthickness="0", borderwidth="0", command=confirm_productID)
     confirmProductNameButton = tk.Button(deleteWindow, text="Delete Name", fg=fg1, bg=gruvYellow, highlightthickness="0", borderwidth="0", command=confirm_product_name)
@@ -330,8 +330,12 @@ def find_products_UI():  # Find products in the database
             errorLabel.configure(text="Please fill the ID input!")
         else:
             answer = select_product(inpID)
-            nameLabel.configure(text=f"Product: {answer[0]}")
-            costLabel.configure(text=f"Cost: {str(answer[1])}")
+            try:
+                nameLabel.configure(text=f"Product: {answer[0]}")
+                costLabel.configure(text=f"Cost: {str(answer[1])}")
+            except TypeError: # If the product is not found
+                nameLabel.configure(text=f"Product not found.")
+
 
     global window
     window.destroy()
