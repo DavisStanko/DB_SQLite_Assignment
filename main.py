@@ -52,28 +52,24 @@ def create_product_table_UI():  # (Re)Creates the product table
     def proceed():
         global messageLabel
         db_name = "coffee_shop.db"
-        sql = """create table Product
-                (ProductID integer,
-                Name text,
-                Price real,
-                primary key(ProductID))"""
         table_name = "Product"
 
         with sqlite3.connect(db_name) as db:
             cursor = db.cursor()
             cursor.execute("select name from sqlite_master where name=?", (table_name,))
             result = cursor.fetchall()
-            keep_table = True
             if len(result) == 1:
                 cursor.execute("drop table if exists {0}".format(table_name))
                 db.commit()
-            else:
-                keep_table = False
+                
+            sql = """create table Product
+                    (ProductID integer,
+                    Name text,
+                    Price real,
+                    primary key(ProductID))"""
+            cursor.execute(sql)
+            db.commit()
 
-            # create the table if required (not keeping old one)
-            if not keep_table:
-                cursor.execute(sql)
-                db.commit()
         back()
         messageLabel.configure(text="Table created!")
 
